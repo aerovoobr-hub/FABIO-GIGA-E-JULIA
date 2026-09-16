@@ -260,12 +260,12 @@ margin-bottom:10px;box-shadow:var(--sh-sm)}
    ============================================================ */
 const DRIVE='https://drive.google.com/drive/folders/18LFJVmxOgacp8imlwAC_JWmXIrcPSOV-';
 const FOLDERS={
-  voos:        '',   // pasta dos voos (KLM, ITA, Aeroitalia)
-  trens:       '',   // pasta dos trens (Eurostar, TGV, SBB, Bernina, Trenord)
-  hoteis:      '',   // pasta dos hotéis
-  transfers:   '',   // pasta dos traslados
-  seguro:      '',   // pasta do seguro viagem
-  restaurantes:''    // pasta das reservas de restaurante
+  voos:        'https://drive.google.com/drive/folders/1hAKIk1eu70yAGJ8r-GbimO1g6ULLMC9T',
+  trens:       'https://drive.google.com/drive/folders/1fNJDlHRka9dXTFA90HZWnXEiu-eVYX9G',
+  hoteis:      'https://drive.google.com/drive/folders/1HKIEnfZ2yWg1CnF3E47KHChbX6Cye8AT',
+  transfers:   'https://drive.google.com/drive/folders/1p6CnmdfTzBD2tTIRSP9bPtD5RznK3CSw',
+  seguro:      'https://drive.google.com/drive/folders/12A_E2-gqF8ztSKc0dM5LGVdhWow_KVZf',
+  restaurantes:'https://drive.google.com/drive/folders/1tmN_X-3-BOyhfoANDWPrjtK3dRyThgv1'
 };
 const link=k=>(k&&FOLDERS[k])?FOLDERS[k]:DRIVE;
 const C={flight:'#1a3fa0',train:'#2e7d32',transfer:'#6a1b9a',move:'#00695c',hotel:'#1b5e20',activity:'#bf360c',food:'#b71c1c',info:'#37474f'};
@@ -537,10 +537,11 @@ function renderDay(){
     if(st==='sug')h+=`<div class="sugnote">Sugestão da AeroVoo. Não está incluída no pacote e não foi comprada com antecedência. Pode ser contratada no local, pelo aplicativo ou com a nossa ajuda durante a viagem.</div>`;
     if(st==='pend')h+=`<div class="sugnote">Passeio ainda não contratado. A reserva é feita diretamente com a recepção do hotel, assim que vocês chegarem.</div>`;
     if(it.tel)h+=`<a class="chip" href="tel:${it.tel}"><span class="material-icons-round">call</span>${esc(it.tel)}</a>`;
-    h+=`<div class="cfoot">`;
+    if(it.info||it.doc)h+=`<div class="cfoot">`;
     if(it.info)h+=`<button class="btn-info" data-d="${cur}" data-x="${ix}"><span class="material-icons-round">info</span>VER SOBRE ESTE LOCAL</button>`;
-    h+=`<a class="btn-doc" href="${link(it.doc)}" target="_blank"><span class="material-icons-round">folder_open</span>Documentos</a>`;
-    h+=`</div></div></div>`;
+    if(it.doc)h+=`<a class="btn-doc" href="${link(it.doc)}" target="_blank"><span class="material-icons-round">folder_open</span>Ver voucher</a>`;
+    if(it.info||it.doc)h+=`</div>`;
+    h+=`</div></div>`;
     return h;
   }).join('');
   document.querySelectorAll('.btn-info').forEach(b=>{const it=DAYS[+b.dataset.d].items[+b.dataset.x];b.onclick=()=>openSheet(it.info,it.doc);});
@@ -554,7 +555,7 @@ function openSheet(o,doc){
   if(o.d&&o.d.length){h+='<h4>Dicas práticas</h4><ul>'+o.d.map(x=>`<li>${esc(x)}</li>`).join('')+'</ul>';}
   h+='<div class="sheet-btns">';
   if(o.map)h+=`<a class="sheet-btn" target="_blank" href="https://www.google.com/maps/search/?api=1&query=${o.map}"><span class="material-icons-round">map</span>GOOGLE MAPS</a>`;
-  h+=`<a class="sheet-btn" target="_blank" href="${link(o.doc)}"><span class="material-icons-round">folder_open</span>DOCUMENTOS</a>`;
+  if(o.doc)h+=`<a class="sheet-btn" target="_blank" href="${link(o.doc)}"><span class="material-icons-round">folder_open</span>VER VOUCHER</a>`;
   h+='</div>';
   $('sh-b').innerHTML=h;$('sheet').classList.add('on');$('sbg').classList.add('on');
 }
