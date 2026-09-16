@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Europa &middot; Fabio &amp; Julia</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Questrial&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+--navy:#264273;--navy-dark:#1a2f5a;--ash:#e3e2e0;--white:#fff;
+--text-dark:#151e2e;--text-mid:#505878;--text-light:#9097b0;
+--flight:#1a3fa0;--train:#2e7d32;--transfer:#6a1b9a;--hotel:#1b5e20;
+--activity:#bf360c;--food:#b71c1c;--info:#37474f;
+--r-sm:8px;--r-md:14px;--r-lg:18px;--r-xl:22px;
+--sh-sm:0 1px 6px rgba(38,66,115,.07);--sh-md:0 4px 18px rgba(38,66,115,.13);
+}
+html{font-size:16px;-webkit-text-size-adjust:100%}
+body{font-family:'Questrial',sans-serif;background:var(--ash);color:var(--text-dark);
+min-height:100vh;max-width:400px;margin:0 auto;overflow-x:hidden;padding-bottom:30px}
+
+/* HEADER */
+.app-header{background:linear-gradient(160deg,#192d58 0%,#264273 55%,#2e4f8a 100%);
+padding:46px 22px 0;position:sticky;top:0;z-index:100;overflow:hidden}
+.app-header::before{content:'';position:absolute;inset:0;pointer-events:none;
+background-image:radial-gradient(circle,rgba(255,255,255,.07) 1.5px,transparent 1.5px);
+background-size:22px 22px}
+.hdr-brand{text-align:center;font-family:'Montserrat',sans-serif;font-size:10.5px;
+font-weight:700;letter-spacing:3.5px;color:rgba(255,255,255,.45);text-transform:uppercase;
+margin-bottom:20px;position:relative}
+.hdr-label{font-family:'Montserrat',sans-serif;font-size:9px;font-weight:600;
+color:rgba(255,255,255,.38);letter-spacing:2px;text-transform:uppercase;margin-bottom:5px;position:relative}
+.hdr-name{font-family:'Montserrat',sans-serif;font-size:25px;font-weight:800;color:#fff;
+line-height:1.15;margin-bottom:10px;position:relative}
+.hdr-cities{display:flex;align-items:center;gap:6px;color:rgba(255,255,255,.72);
+font-size:12.5px;margin-bottom:16px;position:relative}
+.hdr-cities .material-icons-round{font-size:15px}
+.hdr-foot{display:flex;align-items:center;justify-content:space-between;
+padding-bottom:18px;position:relative}
+.hdr-dates{color:rgba(255,255,255,.62);font-size:11.5px}
+.hdr-code{background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.18);
+color:rgba(255,255,255,.85);font-family:'Montserrat',sans-serif;font-size:9.5px;
+font-weight:700;letter-spacing:1px;padding:5px 11px;border-radius:20px}
+
+/* TABS */
+.tabbar{display:flex;background:#fff;position:sticky;top:0;z-index:99;box-shadow:var(--sh-sm)}
+.tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;
+padding:11px 0 9px;border:none;background:none;cursor:pointer;
+border-bottom:2.5px solid transparent;transition:.15s}
+.tab .material-icons-round{font-size:20px;color:var(--text-light)}
+.tab span.lbl{font-family:'Montserrat',sans-serif;font-size:9.5px;font-weight:700;
+letter-spacing:.8px;color:var(--text-light)}
+.tab.active{border-bottom-color:var(--navy)}
+.tab.active .material-icons-round,.tab.active span.lbl{color:var(--navy)}
+
+/* DAY SELECTOR */
+.days{display:flex;gap:8px;overflow-x:auto;padding:14px 16px;scrollbar-width:none}
+.days::-webkit-scrollbar{display:none}
+.day{flex:0 0 auto;width:52px;height:52px;border-radius:12px;background:#fff;
+border:1px solid #d6d5d2;display:flex;flex-direction:column;align-items:center;
+justify-content:center;cursor:pointer;transition:.15s}
+.day .d{font-family:'Montserrat',sans-serif;font-size:16px;font-weight:700;color:var(--navy);line-height:1}
+.day .m{font-family:'Montserrat',sans-serif;font-size:8.5px;font-weight:600;
+color:var(--text-light);text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
+.day.active{background:var(--navy);border-color:var(--navy)}
+.day.active .d,.day.active .m{color:#fff}
+
+/* DAY TITLE */
+.daytitle{padding:4px 20px 12px}
+.daytitle h2{font-family:'Montserrat',sans-serif;font-size:17px;font-weight:800;color:var(--text-dark)}
+.daytitle p{font-size:12.5px;color:var(--text-mid);margin-top:3px}
+
+/* TIMELINE */
+.tl{padding:0 18px}
+.tl-item{position:relative;padding-left:26px;padding-bottom:14px}
+.tl-item::before{content:'';position:absolute;left:5px;top:20px;bottom:-4px;width:2px;background:#d6d5d2}
+.tl-item:last-child::before{display:none}
+.tl-dot{position:absolute;left:0;top:8px;width:12px;height:12px;border-radius:50%;
+border:2.5px solid #fff;box-shadow:0 0 0 1.5px currentColor}
+.card{border-radius:var(--r-md);padding:13px 14px;box-shadow:var(--sh-sm)}
+.card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:7px}
+.ctype{font-family:'Montserrat',sans-serif;font-size:8.5px;font-weight:800;
+letter-spacing:1.3px;text-transform:uppercase}
+.ctime{font-family:'Montserrat',sans-serif;font-size:12px;font-weight:700;color:var(--text-dark)}
+.ctitle{font-family:'Montserrat',sans-serif;font-size:14px;font-weight:700;
+color:var(--text-dark);line-height:1.3;margin-bottom:3px}
+.csub{font-size:12.5px;color:var(--text-mid);line-height:1.45}
+.cdet{font-size:11.5px;color:var(--text-mid);line-height:1.5;margin-top:7px;
+padding-top:7px;border-top:1px dashed rgba(0,0,0,.09)}
+.chip{display:inline-flex;align-items:center;gap:5px;margin-top:9px;
+background:rgba(255,255,255,.75);border:1px solid rgba(0,0,0,.07);border-radius:20px;
+padding:5px 11px;font-size:11px;font-weight:600;color:var(--text-dark);text-decoration:none}
+.chip .material-icons-round{font-size:14px}
+.penalty{margin-top:9px;background:rgba(183,28,28,.09);border-left:3px solid #b71c1c;
+border-radius:4px;padding:7px 9px;font-size:11px;color:#8e1515;line-height:1.45}
+.warn{margin-top:9px;background:rgba(245,158,11,.12);border-left:3px solid #d97706;
+border-radius:4px;padding:7px 9px;font-size:11px;color:#8a5a06;line-height:1.45}
+.cfoot{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.btn-info{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:20px;
+padding:5px 12px;font-family:'Montserrat',sans-serif;font-size:9.5px;font-weight:700;
+letter-spacing:.6px;color:var(--navy);cursor:pointer;display:inline-flex;align-items:center;gap:4px}
+.btn-info .material-icons-round{font-size:13px}
+.btn-doc{background:none;border:none;font-size:11px;color:var(--text-mid);
+cursor:pointer;display:inline-flex;align-items:center;gap:3px;padding:5px 2px}
+.btn-doc .material-icons-round{font-size:14px}
+
+/* SHEET */
+.sheet-bg{position:fixed;inset:0;background:rgba(10,18,35,.55);z-index:200;display:none}
+.sheet-bg.on{display:block}
+.sheet{position:fixed;left:50%;transform:translateX(-50%);bottom:0;width:100%;
+max-width:400px;background:var(--ash);border-radius:22px 22px 0 0;z-index:201;
+max-height:88vh;overflow-y:auto;display:none}
+.sheet.on{display:block}
+.sheet-hd{background:linear-gradient(160deg,#192d58,#264273);padding:20px;
+border-radius:22px 22px 0 0;position:sticky;top:0}
+.sheet-hd h3{font-family:'Montserrat',sans-serif;font-size:17px;font-weight:800;color:#fff;padding-right:34px}
+.sheet-hd p{font-size:12px;color:rgba(255,255,255,.65);margin-top:4px}
+.sheet-x{position:absolute;right:16px;top:18px;background:rgba(255,255,255,.15);
+border:none;border-radius:50%;width:30px;height:30px;color:#fff;cursor:pointer;
+display:flex;align-items:center;justify-content:center}
+.sheet-bd{padding:18px 20px 40px}
+.sheet-bd p{font-size:13px;color:var(--text-mid);line-height:1.6;margin-bottom:12px}
+.sheet-bd h4{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:800;
+letter-spacing:1.1px;text-transform:uppercase;color:var(--navy);margin:16px 0 8px}
+.sheet-bd ul{list-style:none}
+.sheet-bd li{font-size:12.5px;color:var(--text-mid);line-height:1.55;
+padding-left:15px;position:relative;margin-bottom:7px}
+.sheet-bd li::before{content:'';position:absolute;left:0;top:7px;width:5px;height:5px;
+border-radius:50%;background:var(--navy);opacity:.5}
+.sheet-btns{display:flex;gap:8px;margin-top:18px;flex-wrap:wrap}
+.sheet-btn{flex:1;min-width:110px;background:var(--navy);color:#fff;text-decoration:none;
+border-radius:var(--r-sm);padding:11px;text-align:center;font-family:'Montserrat',sans-serif;
+font-size:10.5px;font-weight:700;letter-spacing:.5px;display:flex;align-items:center;
+justify-content:center;gap:5px}
+.sheet-btn .material-icons-round{font-size:15px}
+
+/* GENERIC PANEL */
+.panel{padding:16px 18px 10px}
+.sect{font-family:'Montserrat',sans-serif;font-size:10.5px;font-weight:800;
+letter-spacing:1.4px;text-transform:uppercase;color:var(--text-light);margin:20px 2px 10px}
+.row{display:flex;align-items:center;gap:12px;background:#fff;border-radius:var(--r-md);
+padding:13px 14px;margin-bottom:9px;box-shadow:var(--sh-sm);text-decoration:none;color:inherit}
+.row-ic{flex:0 0 auto;width:38px;height:38px;border-radius:10px;display:flex;
+align-items:center;justify-content:center;color:#fff}
+.row-ic .material-icons-round{font-size:19px}
+.row-tx{flex:1;min-width:0}
+.row-tx .t{font-family:'Montserrat',sans-serif;font-size:12.5px;font-weight:700;color:var(--text-dark)}
+.row-tx .s{font-size:11.5px;color:var(--text-mid);margin-top:2px;word-break:break-word}
+.row-go{flex:0 0 auto;width:26px;height:26px;border-radius:50%;background:var(--ash);
+display:flex;align-items:center;justify-content:center;color:var(--navy)}
+.row-go .material-icons-round{font-size:16px}
+
+/* HERO CONSULTANT */
+.hero{background:linear-gradient(160deg,#192d58,#264273);border-radius:var(--r-lg);
+padding:22px;color:#fff;box-shadow:var(--sh-md);margin-bottom:6px}
+.hero .lb{font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;
+letter-spacing:2px;color:rgba(255,255,255,.45);text-transform:uppercase}
+.hero h3{font-family:'Montserrat',sans-serif;font-size:20px;font-weight:800;margin:6px 0 3px}
+.hero p{font-size:12.5px;color:rgba(255,255,255,.7);margin-bottom:16px}
+.hero-btns{display:flex;gap:8px}
+.hero-btn{flex:1;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.2);
+border-radius:var(--r-sm);padding:10px;text-align:center;text-decoration:none;color:#fff;
+font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.5px;
+display:flex;flex-direction:column;align-items:center;gap:4px}
+.hero-btn .material-icons-round{font-size:17px}
+
+.note{background:#fff;border-left:3px solid var(--navy);border-radius:var(--r-sm);
+padding:12px 14px;font-size:12px;color:var(--text-mid);line-height:1.55;
+margin-bottom:10px;box-shadow:var(--sh-sm)}
+.note b{color:var(--text-dark)}
+.hide{display:none}
+</style>
+</head>
+<body>
+
+<div class="app-header">
+  <div class="hdr-brand">AeroVoo Viagens</div>
+  <div class="hdr-label">Roteiro Personalizado</div>
+  <div class="hdr-name">Fabio &amp; Julia</div>
+  <div class="hdr-cities"><span class="material-icons-round">place</span>
+    Amsterdã · Paris · Suíça · Milão · Sardenha · Roma</div>
+  <div class="hdr-foot">
+    <div class="hdr-dates">20 set — 07 out · 2026</div>
+    <div class="hdr-code">AV-2026-EU01</div>
+  </div>
+</div>
+
+<div class="tabbar">
+  <button class="tab active" data-tab="roteiro"><span class="material-icons-round">calendar_today</span><span class="lbl">ROTEIRO</span></button>
+  <button class="tab" data-tab="docs"><span class="material-icons-round">folder_open</span><span class="lbl">DOCS</span></button>
+  <button class="tab" data-tab="contato"><span class="material-icons-round">support_agent</span><span class="lbl">CONTATO</span></button>
+</div>
+
+<!-- ROTEIRO -->
+<div id="tab-roteiro">
+  <div class="days" id="days"></div>
+  <div class="daytitle" id="daytitle"></div>
+  <div class="tl" id="timeline"></div>
+</div>
+
+<!-- DOCS -->
+<div id="tab-docs" class="hide">
+  <div class="panel">
+    <div class="note"><b>Todos os vouchers da viagem</b> estão reunidos na pasta do Google Drive.
+    Abram antes de embarcar e baixem os arquivos no celular dos dois, para terem acesso mesmo sem internet.</div>
+    <a class="row" href="https://drive.google.com/drive/folders/18LFJVmxOgacp8imlwAC_JWmXIrcPSOV-" target="_blank">
+      <div class="row-ic" style="background:#264273"><span class="material-icons-round">cloud</span></div>
+      <div class="row-tx"><div class="t">Pasta completa no Drive</div><div class="s">Voos, trens, hotéis, traslados, seguro e restaurantes</div></div>
+      <div class="row-go"><span class="material-icons-round">open_in_new</span></div>
+    </a>
+
+    <div class="sect">Documentos por categoria</div>
+    <div id="doccats"></div>
+
+    <div class="sect">Guia Internacional AeroVoo</div>
+    <div id="guias"></div>
+  </div>
+</div>
+
+<!-- CONTATO -->
+<div id="tab-contato" class="hide">
+  <div class="panel">
+    <div class="hero">
+      <div class="lb">Sua consultora</div>
+      <h3>AeroVoo Viagens</h3>
+      <p>Qualquer imprevisto, fale conosco antes de tomar qualquer decisão ou pagar qualquer coisa.</p>
+      <div class="hero-btns">
+        <a class="hero-btn" href="https://wa.me/5555991637381" target="_blank"><span class="material-icons-round">chat</span>WHATSAPP</a>
+        <a class="hero-btn" href="mailto:aerovoobr@gmail.com"><span class="material-icons-round">mail</span>E-MAIL</a>
+        <a class="hero-btn" href="https://instagram.com/aerovoo" target="_blank"><span class="material-icons-round">photo_camera</span>INSTAGRAM</a>
+      </div>
+    </div>
+    <div id="contatos"></div>
+  </div>
+</div>
+
+<div class="sheet-bg" id="sbg"></div>
+<div class="sheet" id="sheet">
+  <div class="sheet-hd">
+    <button class="sheet-x" id="sx"><span class="material-icons-round">close</span></button>
+    <h3 id="sh-t"></h3><p id="sh-s"></p>
+  </div>
+  <div class="sheet-bd" id="sh-b"></div>
+</div>
+
+<script>
+/* ============================================================
+   CONFIGURAÇÃO DAS PASTAS DO GOOGLE DRIVE
+   Cole aqui o link de cada subpasta. Enquanto estiver vazio,
+   o botão abre a pasta principal da viagem.
+   ============================================================ */
+const DRIVE='https://drive.google.com/drive/folders/18LFJVmxOgacp8imlwAC_JWmXIrcPSOV-';
+const FOLDERS={
+  voos:        '',   // pasta dos voos (KLM, ITA, Aeroitalia)
+  trens:       '',   // pasta dos trens (Eurostar, TGV, SBB, Bernina, Trenord)
+  hoteis:      '',   // pasta dos hotéis
+  transfers:   '',   // pasta dos traslados
+  seguro:      '',   // pasta do seguro viagem
+  restaurantes:''    // pasta das reservas de restaurante
+};
+const link=k=>(k&&FOLDERS[k])?FOLDERS[k]:DRIVE;
+const C={flight:'#1a3fa0',train:'#2e7d32',transfer:'#6a1b9a',move:'#00695c',hotel:'#1b5e20',activity:'#bf360c',food:'#b71c1c',info:'#37474f'};
+const BG={flight:'#e8edfa',train:'#e8f5e9',transfer:'#f3e9f8',move:'#e0f2f1',hotel:'#e8f3e9',activity:'#fdeee8',food:'#fdeaea',info:'#eceff1'};
+const LB={flight:'VOO',train:'TREM',transfer:'TRANSFER PRIVATIVO',move:'DESLOCAMENTO',hotel:'HOTEL',activity:'ATIVIDADE',food:'RESTAURANTE',info:'INFORMAÇÃO'};
+
+const DAYS=[
+{d:'20',m:'SET',wd:'Domingo',t:'Embarque em São Paulo',s:'Início da viagem',items:[
+ {ty:'info',h:'18:45',ti:'Chegada ao aeroporto',su:'Guarulhos · Terminal 3',de:'Três horas de antecedência para voo internacional. Passaporte em mãos.'},
+ {ty:'flight',doc:'voos',h:'21:45',ti:'KLM 792 · GRU para Amsterdã',su:'Voo direto · 11h35 · Premium Comfort',de:'Localizador BCVVVY. Duas malas despachadas por passageiro. Chegada 21/09 às 14:20.'}
+]},
+{d:'21',m:'SET',wd:'Segunda',t:'Chegada em Amsterdã',s:'Primeiro dia na Europa',items:[
+ {ty:'flight',doc:'voos',h:'14:20',ti:'Pouso em Schiphol',su:'Imigração do Espaço Schengen',de:'Considerem de 30 a 60 minutos até sair com as malas.'},
+ {ty:'move',h:'15:00',ti:'Schiphol para o centro',su:'Trem direto · 17 minutos · cerca de €6',de:'A estação fica embaixo do próprio terminal. É mais rápido e mais barato que táxi ou Uber. Não há transfer contratado neste trecho.'},
+ {ty:'hotel',doc:'hoteis',h:'15:00',ti:'Inntel Hotels Amsterdam Centre',su:'Spa Room · café da manhã · 1 noite',de:'Nieuwezijds Kolk 19. A poucos minutos a pé da Estação Central.',tel:'+31205301818',
+  info:{t:'Inntel Hotels Amsterdam Centre',s:'Nieuwezijds Kolk 19 · Amsterdã',
+  p:['Uma das melhores posições da cidade, a poucos minutos a pé da Estação Central, o que resolve a chegada do aeroporto e a saída para Paris.','A Praça Dam, o Jordaan e os canais principais estão a menos de 20 minutos a pé.'],
+  d:['Check-in a partir das 15:00 · check-out até as 11:00','Imposto municipal pago no hotel: cerca de R$ 198','Tem secador de cabelo no quarto'],map:'Inntel+Hotels+Amsterdam+Centre'}},
+ {ty:'activity',h:'Tarde',ti:'Primeiro contato com a cidade',su:'Praça Dam, canais e Jordaan',de:'Primeiro dia depois de voo longo não é dia de museu. Caminhada leve, jantar cedo e dormir cedo ajudam a ajustar o fuso.',
+  info:{t:'O que fazer na chegada',s:'Amsterdã · tarde e noite',
+  p:['Amsterdã é compacta e quase tudo se faz a pé a partir do hotel.'],
+  d:['Praça Dam, a 5 minutos do hotel','As Nove Ruazinhas (De 9 Straatjes), a região mais charmosa para caminhar sem destino','O Begijnhof, um pátio silencioso escondido no centro, entrada gratuita','Para jantar, o bairro do Jordaan tem os melhores bistrôs','Cuidado com as ciclovias: a bicicleta tem preferência e os ciclistas não desviam']}}
+]},
+{d:'22',m:'SET',wd:'Terça',t:'Amsterdã e viagem para Paris',s:'Manhã livre · Eurostar à tarde',items:[
+ {ty:'food',h:'Livre',ti:'Winkel 43 · a torta de maçã',su:'Noordermarkt · bairro do Jordaan',de:'O appeltaart mais famoso da Holanda. Fatia enorme, quente, com montanha de chantilly. Como vocês já terão tomado café no hotel, vale deixar para o meio da manhã ou início da tarde. Vocês decidem a hora.',
+  info:{t:'Winkel 43',s:'Noordermarkt · Jordaan',
+  p:['Serve o appeltaart mais famoso da Holanda desde sempre: massa grossa, recheio de maçã com canela, servido quente com chantilly.'],
+  d:['Cerca de 15 minutos a pé do hotel','O caminho até lá passa pelos canais mais bonitos da cidade','Costuma ter fila, mas anda rápido','Um café da manhã tardio ali é a melhor despedida de Amsterdã'],map:'Winkel+43+Amsterdam'}},
+ {ty:'info',h:'09:30',ti:'Café da manhã e check-out',su:'Malas ficam guardadas na recepção',de:'Tomem o café no hotel e façam o check-out antes de sair. As malas ficam guardadas e vocês passeiam livres. Voltem por volta das 15:25 para buscá-las.'},
+ {ty:'train',doc:'trens',h:'16:10',ti:'Eurostar 9370 para Paris',su:'Amsterdam Centraal → Paris Gare du Nord',de:'Chegada às 19:45. Vagão 17, assentos 21 e 22. Reserva WFHX44. Estar na estação às 15:50.',
+  warn:'Na Holanda é preciso ESCANEAR o bilhete para entrar e sair das estações. Quem usa Android deve desativar o NFC ao passar pelas catracas.'},
+ {ty:'hotel',doc:'hoteis',h:'20:15',ti:'Pullman Paris Tour Eiffel',su:'Deluxe Room com varanda e vista · 3 noites',de:'18 avenue de Suffren. Do Gare du Nord são cerca de 25 minutos de táxi ou aplicativo, sem transfer contratado.',tel:'+33144385600',
+  info:{t:'Pullman Paris Tour Eiffel',s:'18 avenue de Suffren · 15º arrondissement',
+  p:['Fica a menos de 200 metros da Torre Eiffel, e o quarto reservado tem varanda privativa com vista frontal para o monumento.','Na prática: café da manhã olhando para a torre e o cintilar de hora em hora sem sair do quarto.'],
+  d:['Check-in a partir das 16:00 · check-out até as 11:00','No último andar funciona o Frame, restaurante e bar com vista panorâmica','Metrô Bir-Hakeim (linha 6) e Dupleix a poucos minutos a pé','Imposto municipal pago no hotel: cerca de R$ 302'],map:'Pullman+Paris+Tour+Eiffel'}}
+]},
+{d:'23',m:'SET',wd:'Quarta',t:'Paris clássica',s:'Torre Eiffel e centro histórico',items:[
+ {ty:'activity',h:'09:00',ti:'Torre Eiffel',su:'Subida logo na abertura',de:'Menos fila e melhor luz. Ingresso com horário marcado comprado antecipadamente. Reservem cerca de 1h30.',
+  info:{t:'Torre Eiffel',s:'Champ de Mars · a 10 min a pé do hotel',
+  p:['Nasceu para ser provisória: construída para a Exposição Universal de 1889, deveria ser desmontada vinte anos depois. Só foi poupada porque servia como antena de rádio.'],
+  d:['Subam na abertura, quando a fila é menor','O Champ de Mars, atrás da torre, entrega a foto clássica','A cada hora cheia depois do anoitecer ela cintila por 5 minutos','O melhor ponto para ver isso é o Trocadéro, do outro lado do rio'],map:'Tour+Eiffel+Paris'}},
+ {ty:'food',h:'12:30',ti:'Almoço na Rue Cler',su:'Rua-mercado a céu aberto',de:'Fechada para carros, com queijarias, padarias e bancas de frutas. Peçam o menu do dia, bem mais barato que a carta.',
+  info:{t:'Rue Cler',s:'A 10 minutos a pé do hotel',
+  p:['É a Paris de bairro, sem turista de ônibus. Rua-mercado fechada para carros, com bistrôs de calçada.'],
+  d:['Ótima também para montar um piquenique de queijo e pão para o Champ de Mars','Quase todo bistrô francês tem menu du jour no almoço, com preço fixo bem abaixo do jantar'],map:'Rue+Cler+Paris'}},
+ {ty:'activity',h:'14:30',ti:'Notre-Dame e Île de la Cité',su:'Entrada gratuita na catedral',de:'A fila parece longa mas anda rápido. Deem a volta completa por fora: a parte de trás, com os arcobotantes, é mais bonita que a fachada.',
+  info:{t:'Île de la Cité',s:'Coração histórico de Paris',
+  d:['Notre-Dame: entrada gratuita','Sainte-Chapelle, a poucos metros: quinze vitrais do século XIII que sobem quinze metros. Ingresso à parte e vale muito','Île Saint-Louis: parada obrigatória na Berthillon, a sorveteria mais tradicional de Paris, desde 1954'],map:'Ile+de+la+Cite+Paris'}},
+ {ty:'activity',h:'17:30',ti:'Saint-Germain-des-Prés',su:'Café de Flore ou Les Deux Magots',de:'Os cafés de Sartre e Simone de Beauvoir. Paga-se pelo endereço, mas sentar na calçada faz parte da experiência.'},
+ {ty:'food',h:'19:30',ti:'Jantar em Saint-Germain',su:'Le Procope ou um bistrô do bairro',de:'O Le Procope funciona desde 1686 e é o restaurante mais antigo de Paris. Reservem pelo TheFork durante a tarde.'},
+ {ty:'activity',h:'22:00',ti:'O cintilar da Torre Eiffel',su:'Da varanda do quarto ou do Trocadéro',de:'Na hora cheia a torre pisca por cinco minutos, com milhares de luzes brancas sobre a estrutura dourada.'}
+]},
+{d:'24',m:'SET',wd:'Quinta',t:'Compras, vistas e o Sena',s:'Champs-Élysées, Lafayette e barco',items:[
+ {ty:'activity',h:'10:30',ti:'Champs-Élysées',su:'Da Place de la Concorde ao Arco do Triunfo',de:'Cerca de 2 quilômetros em aclive suave, com lojas, cafés de calçada e vitrines.'},
+ {ty:'activity',h:'12:00',ti:'Arco do Triunfo',su:'Terraço com vista de 360 graus',de:'Pega as doze avenidas se abrindo em estrela, com a Torre Eiffel ao fundo. Bem menos concorrido que a própria torre.',
+  warn:'Usem a passagem subterrânea para chegar até ele. Nunca atravessem a rotatória na rua.'},
+ {ty:'activity',h:'14:30',ti:'Galeries Lafayette',su:'Boulevard Haussmann · metrô Chaussée d\'Antin',de:'Cúpula de vitrais art nouveau de 1912, com dez andares de sacadas douradas em volta.',
+  info:{t:'Galeries Lafayette',s:'Boulevard Haussmann · Paris',
+  p:['Mesmo sem comprar nada, vale entrar. É um dos interiores mais impressionantes da cidade.'],
+  d:['Subam ao TERRAÇO, no último andar: acesso gratuito e vista para os telhados de Paris, a Ópera Garnier e a Torre Eiffel','Turistas de fora da União Europeia têm direito a isenção de impostos em compras acima de um valor mínimo. Perguntem sobre o tax free e guardem as notas','O prédio ao lado, o Lafayette Gourmet, é um mercado gastronômico enorme'],map:'Galeries+Lafayette+Haussmann'}},
+ {ty:'activity',h:'19:30',ti:'Passeio de barco pelo Sena',su:'Port de la Bourdonnais · aos pés da torre',de:'Cerca de uma hora. A partida pega o fim do pôr do sol, por volta das 19h40, e a cidade se acendendo.',
+  info:{t:'Barco no Sena',s:'Port de la Bourdonnais · 10 min a pé do hotel',
+  p:['Às oito em ponto vocês estarão no meio do rio, e a Torre Eiffel cintila por cinco minutos. Ver isso de dentro do barco, com a luz refletindo na água, é melhor que de qualquer ponto em terra.'],
+  d:['Passa por Notre-Dame, Louvre, Musée d\'Orsay, Pont Alexandre III e Conciergerie','Sentem no convés aberto, na parte de cima','Levem um casaco: no fim de setembro esfria bastante sobre a água','Cheguem 20 minutos antes do horário do barco'],map:'Port+de+la+Bourdonnais+Paris'}},
+ {ty:'food',doc:'restaurantes',h:'21:00',ti:'Madame Brasserie · Torre Eiffel',su:'1º andar · 57 metros de altura · reserva confirmada',de:'Cozinha do chef Thierry Marx. A reserva inclui o acesso à torre.',
+  warn:'Peçam a mesa do LADO DO SENA: é a que olha para o rio, a Ponte de Iéna e o Trocadéro. As mesas do miolo do salão não têm janela.',
+  info:{t:'Madame Brasserie',s:'1º andar da Torre Eiffel',
+  p:['Restaurante do chef Thierry Marx no primeiro andar da torre, a 57 metros de altura.'],
+  d:['A reserva já inclui o acesso à torre','Não dá acesso ao topo, que precisa de ingresso separado','Existe também um bar de champagne no topo, a 276 metros, sem reserva, que serve bebidas sem álcool'],map:'Madame+Brasserie+Tour+Eiffel'}},
+ {ty:'info',h:'Noite',ti:'Etiquetem as malas',su:'Exigência da SNCF para o trem de amanhã',de:'Coloquem etiqueta com nome e sobrenome nas duas malas despachadas. É conferido no embarque.'}
+]},
+{d:'25',m:'SET',wd:'Sexta',t:'Paris para Zurique',s:'TGV Lyria · 4h04',items:[
+ {ty:'food',h:'08:45',ti:'Café da manhã no Le Train Bleu',su:'Dentro da própria Gare de Lyon',de:'Salão Belle Époque de 1901, com tetos pintados e lustres dourados, tombado como monumento histórico.',
+  info:{t:'Le Train Bleu',s:'Gare de Lyon · Paris',
+  p:['Um dos salões mais bonitos de Paris, aberto em 1901 e tombado como monumento histórico. Fica dentro da própria estação de onde vocês partem.'],
+  d:['Serve café da manhã','Vale chegar com folga para aproveitar o salão','Se preferirem, o café da manhã do hotel também resolve'],map:'Le+Train+Bleu+Gare+de+Lyon'}},
+ {ty:'move',h:'09:15',ti:'Hotel para a Gare de Lyon',su:'Táxi, Uber ou Bolt · cerca de 30 minutos',de:'Não há transfer contratado. Com malas, táxi ou aplicativo é o mais prático. Peçam pelo Bolt ou Uber com antecedência.',
+  warn:'A partida é da GARE DE LYON, e não da Gare du Nord, onde vocês chegaram de Amsterdã. São duas estações em lados opostos da cidade.'},
+ {ty:'train',doc:'trens',h:'10:22',ti:'TGV Lyria 9211 para Zurique',su:'Gare de Lyon → Zurich HB · chegada 14:26',de:'Voiture 15, lugares 546 e 547. Dossiê UZLDCK. Presença na plataforma obrigatória 2 minutos antes da partida.'},
+ {ty:'hotel',doc:'hoteis',h:'15:00',ti:'ibis Styles Zurich City Center',su:'Quarto casal · café da manhã · 1 noite',de:'Stampfenbachstrasse 60. A poucos minutos a pé da Hauptbahnhof.',tel:'+41443002200',
+  info:{t:'ibis Styles Zurich City Center',s:'Stampfenbachstrasse 60 · Zurique',
+  p:['Para uma noite entre dois trens, o que mais importa é a distância até a Hauptbahnhof, e este hotel resolve isso a pé.'],
+  d:['Check-in a partir das 15:00 · check-out até as 11:00','Bahnhofstrasse, Cidade Velha e Lago de Zurique ao alcance de uma caminhada curta','A Suíça não usa euro: a moeda é o franco suíço (CHF)','Quase tudo aceita cartão, não é necessário trocar dinheiro'],map:'ibis+Styles+Zurich+City+Center'}},
+ {ty:'food',h:'19:30',ti:'Jantar no Zeughauskeller',su:'Cervejaria histórica em antigo arsenal',de:'O prato símbolo de Zurique é o Zürcher Geschnetzeltes: tirinhas de vitela em molho cremoso, servidas com rösti.'}
+]},
+{d:'26',m:'SET',wd:'Sábado',t:'Zurique para Chur',s:'Entrada nos Alpes de Graubünden',items:[
+ {ty:'train',doc:'trens',h:'09:07',ti:'Trem IC 763 para Chur',su:'Zürich HB → Chur · chegada 10:22',de:'Cerca de 1h15, já dentro da paisagem alpina. Estejam na estação às 08:50.',
+  warn:'O bilhete é válido SOMENTE para o trem IC 763. Não embarquem em outro.'},
+ {ty:'hotel',doc:'hoteis',h:'15:00',ti:'ibis Chur',su:'Executive Room · café da manhã · 2 noites',de:'Richtstrasse 19, região de Chur West. Guardem as malas ao chegar e façam o check-in depois.',tel:'+41812526060',
+  info:{t:'ibis Chur',s:'Richtstrasse 19 · Chur',
+  p:['Chur é a cidade mais antiga da Suíça, com centro medieval preservado e cercada pelos Alpes de Graubünden.'],
+  d:['Check-in a partir das 15:00 · check-out até as 12:00','Fica na região de Chur West, não na estação central','Combinem com a recepção o transporte até a estação central na manhã do dia 28, para o Bernina Express','Taxa municipal de CHF 1,80 por pessoa/noite paga no hotel'],map:'ibis+Chur+Richtstrasse'}},
+ {ty:'activity',h:'Tarde',ti:'Centro medieval de Chur',su:'A cidade mais antiga da Suíça',de:'Ruelas de pedra, catedral e praças. Dá para conhecer tudo a pé em uma tarde.'}
+]},
+{d:'27',m:'SET',wd:'Domingo',t:'Tobogã Pradaschier',s:'Dia livre nos Alpes',items:[
+ {ty:'activity',h:'Manhã',ti:'Tobogã de montanha Pradaschier',su:'Churwalden · a 15 minutos de Chur',de:'3.060 metros de pista, 31 curvas, 480 metros de desnível. Recorde do Guinness como a pista guiada por trilhos mais longa da Europa.',
+  tel:'+41813562180',
+  warn:'A pista não opera com chuva. Se o dia amanhecer fechado, liguem antes de sair para confirmar.',
+  info:{t:'Pradaschier',s:'Churwalden · Graubünden',
+  p:['Cada descida leva de 7 a 10 minutos, e vocês controlam a própria velocidade pela alavanca de freio, chegando a 40 km/h. O teleférico devolve ao topo em cerca de 7 minutos.'],
+  d:['COMO CHEGAR: ônibus postal linha 182 da estação central de Chur, direção Lenzerheide','Sai a cada 30 minutos · viagem de 13 a 15 minutos · entre CHF 3 e 5','Descer na parada BERGBAHNEN CHURWALDEN, e são 5 minutos a pé até a base','Ingresso pago no local: cerca de CHF 18 por descida por pessoa','Funciona o ano inteiro, porque a pista corre sobre trilhos elevados','Há restaurante na base e outro no topo, com vista do vale'],map:'Pradaschier+Churwalden'}},
+ {ty:'info',h:'Noite',ti:'Malas prontas',su:'O trem de amanhã sai cedo',de:'O Bernina Express parte às 08:17 da estação central de Chur, que não é a mesma região do hotel.'}
+]},
+{d:'28',m:'SET',wd:'Segunda',t:'BERNINA EXPRESS',s:'O ponto alto da viagem',items:[
+ {ty:'info',h:'07:45',ti:'Chegada à estação central de Chur',su:'Trinta minutos de antecedência',de:'Tempo para localizar a plataforma e o vagão sem correria.',
+  warn:'O hotel fica em Chur West. A estação central é outro ponto. Combinem o transporte com a recepção na véspera.'},
+ {ty:'train',doc:'trens',h:'08:17',ti:'Bernina Express 951 para Tirano',su:'Vagão 12 · 1ª classe · assentos 41 e 43',de:'Chegada às 12:49. Vagão panorâmico com teto de vidro. Reserva 2979758-1.',
+  info:{t:'Bernina Express',s:'Chur → Tirano · 4h32',
+  p:['Patrimônio da Humanidade pela UNESCO, percorre duas ferrovias históricas de montanha construídas entre 1896 e 1904.'],
+  d:['Sobe até 2.253 metros no Ospizio Bernina, com o Lago Bianco de um lado','Passa por Filisur, St. Moritz e Alp Grüm, com vista para o glaciar do Palü','Atravessa o Viaduto Circular de Brusio, uma espiral de pedra a céu aberto, logo antes de Tirano','55 túneis e 196 pontes, com rampas de até 7% vencidas só por aderência','Wi-Fi gratuito a bordo e aplicativo guia da ferrovia','Pagamento a bordo SOMENTE por cartão','Levem os passaportes: vocês cruzam da Suíça para a Itália durante o trajeto'],map:'Chur+Bahnhof'}},
+ {ty:'food',h:'13:00',ti:'Almoço em Tirano',su:'Cerca de duas horas de intervalo',de:'O Santuário da Madonna di Tirano fica a poucos passos da estação e vale a visita.'},
+ {ty:'train',doc:'trens',h:'15:08',ti:'Trenord 2833 para Milão',su:'Tirano → Milano Centrale · chegada 17:43',de:'Trem regional direto, 2h35. Sem reserva de assento: sentem onde quiserem.'},
+ {ty:'hotel',doc:'hoteis',h:'18:00',ti:'Marconi Hotel',su:'Quarto casal · buffet de café da manhã · 2 noites',de:'Via Fabio Filzi 3, nas proximidades da Milano Centrale.',tel:'+390266985561',
+  info:{t:'Marconi Hotel',s:'Via Fabio Filzi 3 · Milão',
+  p:['Fica nas proximidades da Milano Centrale, exatamente onde o trem de Tirano chega.'],
+  d:['Check-in a partir das 15:00 · check-out até as 11:30','Metrô leva ao Duomo em poucos minutos','A Centrale é o ponto de partida para o Lago di Como, a cerca de 1 hora de trem','Linate fica a 20 a 25 minutos de carro','Imposto municipal pago no hotel: cerca de R$ 238'],map:'Marconi+Hotel+Milano+Via+Fabio+Filzi'}},
+ {ty:'food',h:'20:00',ti:'Aperitivo nos Navigli',su:'A tradição mais divertida de Milão',de:'Pede-se uma bebida entre 8 e 15 euros e vem um bufê de comida junto, sem custo. Peçam um Crodino ou um Sanbittèr, que são os aperitivos analcoólicos clássicos italianos.'}
+]},
+{d:'29',m:'SET',wd:'Terça',t:'Milão, dia livre',s:'Cidade ou Lago di Como',items:[
+ {ty:'activity',h:'Dia',ti:'Duomo, Galleria e Navigli',su:'Ou bate-volta ao Lago di Como',de:'O trem para Varenna sai da Milano Centrale e leva cerca de 1 hora, de onde sai a balsa para Bellagio.',
+  info:{t:'Opções para o dia',s:'Milão · 29 de setembro',
+  d:['NA CIDADE: Duomo, Galleria Vittorio Emanuele II, Castelo Sforzesco e os canais dos Navigli','FORA: Lago di Como, com trem até Varenna e balsa para Bellagio. Fim de setembro é excelente no lago','O Luini, ao lado do Duomo, funciona desde 1888 e vende um único produto, o panzerotto, um pastel frito de tomate e muçarela','A Pasticceria Marchesi, de 1824 e hoje da Prada, tem salão no primeiro andar da Galleria com vista para a cúpula','Terrazza Aperol, na Piazza del Duomo: terraço com vista frontal da catedral, com versão analcoólica do spritz']}},
+ {ty:'food',doc:'restaurantes',h:'20:00',ti:'10_11 · Portrait Milano',su:'Corso Venezia 11 · reserva confirmada',de:'Pátio com colunata do século XVI, no coração do Quadrilátero da Moda. Entrada também pela Via Sant\'Andrea 10.',
+  tel:'+390236799585',
+  info:{t:'10_11 Portrait Milano',s:'Corso Venezia 11 · Milão',
+  p:['Um dos endereços mais elegantes da cidade, em um pátio com colunata do século XVI dentro do Quadrilátero da Moda.'],
+  d:['Entrada também pela Via Sant\'Andrea 10','Reserva confirmada para duas pessoas às 20:00','A casa trabalha com valor mínimo de consumo'],map:'Portrait+Milano+Corso+Venezia+11'}},
+ {ty:'info',h:'Noite',ti:'Malas prontas',su:'A saída de amanhã é de madrugada',de:'Contratem o carro para Linate ainda hoje, pela recepção. Táxi de rua às 06:45 é escasso.'}
+]},
+{d:'30',m:'SET',wd:'Quarta',t:'Milão para a Sardenha',s:'Começa o descanso',items:[
+ {ty:'move',h:'06:45',ti:'Hotel para o aeroporto de Linate',su:'Táxi ou aplicativo · 20 a 25 minutos',de:'Não há transfer contratado. Táxi de rua às 06:45 é escasso em Milão, então contratem o carro na véspera pela recepção do hotel ou deixem agendado no Uber ou FREE NOW.'},
+ {ty:'flight',doc:'voos',h:'09:00',ti:'Aeroitalia XZ 2621 para Olbia',su:'Linate → Olbia · chegada 10:10',de:'Assentos 1A e 1B. Reserva F9Z9TW. Embarque começa às 08:20. Bagagem de 32kg inclusa.'},
+ {ty:'transfer',doc:'transfers',h:'11:15',ti:'Traslado privativo até o hotel',su:'Aeroporto de Olbia → Baja Sardinia · 40 min',de:'Incluso no pacote. O motorista aguarda no saguão de desembarque com placa com o nome de Fabio Augusto Rezende e entra em contato no dia.'},
+ {ty:'hotel',doc:'hoteis',h:'14:00',ti:'Club Hotel Baja Sardinia',su:'Deluxe Sea View · café da manhã · 4 noites',de:'Loc. Baja Sardinia, Costa Smeralda. Praia privativa própria.',tel:'+3907899006',
+  info:{t:'Club Hotel Baja Sardinia',s:'Baja Sardinia · Costa Smeralda',
+  p:['No coração da Costa Smeralda, com praia privativa própria e a praia pública de Cala Battistoni a poucos passos.'],
+  d:['Check-in a partir das 14:00 · check-out até as 07:00','Palau, de onde saem os barcos para La Maddalena, fica a 15 minutos','Porto Cervo a cerca de 20 minutos','O restaurante SOMU, uma estrela Michelin, funciona dentro do próprio hotel','O centrinho de Baja Sardinia, com lojas, gelaterias e bares, fica a poucos minutos a pé'],map:'Club+Hotel+Baja+Sardinia'}},
+ {ty:'food',h:'20:00',ti:'Jantar no SOMU',su:'Uma estrela Michelin · dentro do hotel',de:'Chef Salvatore Camedda, com o conceito de uma Sardenha contemporânea. Entrou na lista dos 50 melhores da Itália em cozinha de autor.',
+  info:{t:'Somu',s:'Dentro do Club Hotel Baja Sardinia',
+  p:['Uma estrela Michelin, sem precisar sair do hotel nem pegar carro. É a experiência gastronômica mais alta de toda a viagem.'],
+  d:['Chef Salvatore Camedda','Reinterpreta produtos da ilha como a bottarga, o pane carasau e o peixe da costa','Vale perguntar se há harmonização analcoólica para o menu degustação']}}
+]},
+{d:'01',m:'OUT',wd:'Quinta',t:'Sardenha',s:'Primeiro dia inteiro de praia',items:[
+ {ty:'activity',h:'Dia',ti:'Praias da Costa Smeralda',su:'Cala Battistoni, Capriccioli, Liscia Ruja',de:'O hotel tem praia privativa própria, e a praia pública de Cala Battistoni fica a poucos passos.',
+  info:{t:'Praias da região',s:'Costa Smeralda',
+  d:['CALA BATTISTONI: a praia da porta do hotel','CAPRICCIOLI: areia clara e enseadas protegidas, uma das mais bonitas da costa','LISCIA RUJA: a maior praia de areia da região, águas rasas e calmas','CALA GRANU: pequena e tranquila, perto de Porto Cervo','Não há transporte público útil na região. As praias mais bonitas só se alcança de carro']}},
+ {ty:'food',h:'20:00',ti:'Jantar no centrinho',su:'Baja Sardinia · a poucos minutos a pé',de:'Pracinha com lojas, gelaterias, bares e restaurantes, animada no fim da tarde.'}
+]},
+{d:'02',m:'OUT',wd:'Sexta',t:'La Maddalena',s:'Passeio de barco pelo arquipélago',items:[
+ {ty:'activity',h:'Dia',ti:'Barco pelo arquipélago de La Maddalena',su:'Dia inteiro · a confirmar com a recepção',de:'Navegação entre Budelli, Spargi e Caprera, com paradas para banho em enseadas de areia branquíssima.',warn:'Este passeio é reservado diretamente com a recepção do hotel. Confirmem disponibilidade, horário e ponto de saída assim que chegarem.',
+  info:{t:'La Maddalena',s:'Arquipélago · Parque Nacional',
+  p:['Costuma virar a lembrança mais forte de toda a viagem. Águas de um turquesa que quase não parece real.'],
+  d:['Paradas em Budelli, com a famosa praia rosa, Spargi e Caprera','Cala Coticcio, em Caprera, é chamada de Taiti da Sardenha','A maioria dos passeios inclui almoço a bordo','Levem protetor solar, chapéu e uma camiseta para o sol do meio-dia','Avisem o operador que vocês não consomem álcool, para prepararem algo sem'],map:'Palau+Sardinia+porto'}}
+]},
+{d:'03',m:'OUT',wd:'Sábado',t:'Costa Smeralda de carro',s:'Passeio privativo',items:[
+ {ty:'activity',h:'Dia',ti:'Passeio privativo pela costa',su:'Com motorista · a confirmar com a recepção',de:'Roteiro livre pelas praias da região, com passagem por Porto Cervo e San Pantaleo.',warn:'Este passeio é organizado diretamente pela recepção do hotel. Confirmem itinerário, duração e valor assim que chegarem.',
+  info:{t:'Costa Smeralda',s:'Passeio de carro',
+  d:['PORTO CERVO: marinas, boutiques e a Piazzetta, a cerca de 20 minutos','SAN PANTALEO: vila no alto de uma colina, entre picos de granito vermelho. Linda no fim da tarde','BELVEDERE: mirante com vista panorâmica da costa nordeste','As praias de Capriccioli, Liscia Ruja e Spiaggia del Principe ficam todas no caminho']}},
+ {ty:'info',h:'Noite',ti:'Confirmem o código de Roma',su:'Prazo final para o contato com o hotel',de:'O hotel de Roma não tem recepção. O código de acesso precisa estar em mãos antes da chegada de amanhã.'}
+]},
+{d:'04',m:'OUT',wd:'Domingo',t:'Sardenha para Roma',s:'Chegada à Cidade Eterna',items:[
+ {ty:'info',h:'07:00',ti:'Check-out do hotel',su:'Malas prontas na porta',de:'O motorista espera no máximo 15 minutos.'},
+ {ty:'transfer',doc:'transfers',h:'07:35',ti:'Traslado privativo ao aeroporto',su:'Baja Sardinia → Olbia · 40 min',de:'Incluso no pacote. Estejam prontos com as malas no horário combinado.'},
+ {ty:'flight',doc:'voos',h:'11:55',ti:'Aeroitalia XZ 2612 para Roma',su:'Olbia → Fiumicino T1 · chegada 12:55',de:'Assentos 6E e 6F. Reserva M9448G.'},
+ {ty:'transfer',doc:'transfers',h:'13:40',ti:'Traslado privativo até o hotel',su:'Fiumicino → Via della Panetteria 10',de:'Incluso no pacote. O motorista aguarda no saguão de desembarque do Terminal 1 com placa com o nome de Fabio Augusto Rezende.'},
+ {ty:'hotel',doc:'hoteis',h:'14:30',ti:'My Trevi Charming & Luxury Rooms',su:'Quarto casal luxo · 3 noites',de:'Via della Panetteria 10, a poucos passos da Fontana di Trevi.',tel:'+393388975779',
+  penalty:'ESTA HOSPEDAGEM NÃO TEM RECEPÇÃO. O acesso é por entrada privada, com código. Vocês precisam estar com o código e as instruções em mãos ANTES de chegar.',
+  info:{t:'My Trevi Charming & Luxury Rooms',s:'Via della Panetteria 10 · Roma',
+  p:['O hotel mais bem avaliado de toda a viagem, a poucos passos da Fontana di Trevi, no coração absoluto do centro histórico.'],
+  d:['Check-in a partir das 14:30, MEDIANTE CÓDIGO DE ACESSO','Check-out até as 11:00','Não há recepção: contato com a propriedade obrigatório 24h antes','Somente hospedagem, sem café da manhã incluso','Metrô Barberini (linha A) a poucos minutos a pé','Fontana di Trevi, Panteão, Piazza di Spagna e Piazza Navona todos a uma caminhada'],map:'Via+della+Panetteria+10+Roma'}},
+ {ty:'activity',h:'Tarde',ti:'Centro histórico',su:'Fontana di Trevi, Panteão e Piazza Navona',de:'Os Museus do Vaticano fecham aos domingos, então hoje é dia de caminhar pelo centro.'},
+ {ty:'info',h:'Noite',ti:'Despertador às 07:00',su:'Vale a pena, e muito',de:'Amanhã de manhã a Fontana di Trevi fica quase vazia. Estando a 5 minutos dali, vocês têm um privilégio que quem se hospeda longe não tem.'}
+]},
+{d:'05',m:'OUT',wd:'Segunda',t:'Vaticano',s:'Museus e Capela Sistina',items:[
+ {ty:'activity',h:'07:00',ti:'Fontana di Trevi vazia',su:'A 5 minutos a pé do hotel',de:'Entre 6h30 e 7h30 a praça fica quase vazia e a luz da manhã bate de frente na fachada branca.',
+  info:{t:'Fontana di Trevi de manhã',s:'A 5 minutos do hotel',
+  p:['Durante o dia é impossível fotografar sem uma multidão na frente. De manhã cedo, vocês conseguem a foto do casal sozinhos com a fonte inteira ao fundo.'],
+  d:['Levem a moeda para jogar: de costas, com a mão direita por cima do ombro esquerdo','Quem joga uma moeda volta a Roma','Aproveitem e caminhem até a Piazza di Spagna e o Panteão, também vazios a essa hora','Depois, café e cornetto no balcão de qualquer bar do bairro'],map:'Fontana+di+Trevi+Roma'}},
+ {ty:'activity',h:'10:00',ti:'Museus do Vaticano e Capela Sistina',su:'Ingresso com horário marcado',de:'O percurso completo leva de 3 a 4 horas. A Capela Sistina fica no fim do trajeto, então vale poupar energia para ela.',
+  info:{t:'Museus do Vaticano',s:'Cidade do Vaticano',
+  d:['Abrem normalmente às segundas. Fecham aos domingos, exceto no último do mês','Comprem o ingresso com horário marcado e antecedência','Metrô Barberini (linha A) leva direto à região','Considerem a visita guiada: o acervo é imenso e um bom guia transforma a experiência','Ombros e joelhos cobertos são obrigatórios'],map:'Musei+Vaticani'}},
+ {ty:'food',h:'13:30',ti:'Almoço em Prati',su:'Ao lado do Vaticano',de:'É onde os romanos realmente comem naquela região, longe das armadilhas turísticas.'},
+ {ty:'food',h:'20:00',ti:'Jantar romano',su:'Armando al Pantheon ou Roscioli',de:'O Armando funciona desde 1961 com a mesma família. O Roscioli é uma salumeria com cozinha, com uma das melhores carbonaras da cidade. Os dois precisam de reserva antecipada.'}
+]},
+{d:'06',m:'OUT',wd:'Terça',t:'Roma antiga',s:'Último dia na Europa',items:[
+ {ty:'activity',h:'09:00',ti:'Coliseu, Fórum Romano e Palatino',su:'Ingresso combinado com horário marcado',de:'Entrem pelo Coliseu, sigam para o Fórum e terminem no Palatino, que oferece a melhor vista do conjunto.',
+  info:{t:'Coliseu e Fórum',s:'Roma antiga',
+  d:['Ingresso combinado dá acesso aos três','Cheguem cedo: faz enorme diferença nas filas','O Palatino tem a melhor vista do conjunto','O bairro de Monti, a poucos minutos, é ótimo para o almoço'],map:'Colosseo+Roma'}},
+ {ty:'food',h:'13:00',ti:'Almoço no Gueto Judeu',su:'Carciofi alla giudia',de:'Alcachofra inteira frita até ficar crocante como uma flor. Outubro é exatamente o começo da temporada.'},
+ {ty:'activity',h:'16:00',ti:'Trastevere',su:'Do outro lado do Tibre',de:'O bairro mais animado de Roma, com ruas de paralelepípedo e um clima que não existe em nenhum outro lugar.'},
+ {ty:'food',h:'20:00',ti:'Jantar de despedida',su:'Aroma ou Imàgo',de:'O Aroma tem uma estrela Michelin e terraço com vista frontal do Coliseu. O Imàgo fica no topo da Escadaria da Praça de Espanha, também estrelado, com vista panorâmica de Roma.',
+  info:{t:'Opções para a última noite',s:'Roma',
+  d:['AROMA, no Palazzo Manfredi: 1 estrela Michelin, 28 lugares, vista frontal do Coliseu. Dress code casual elegante','IMÀGO, no Hotel Hassler: 1 estrela Michelin, no topo da Escadaria da Praça de Espanha, a 10 minutos a pé do hotel','THE COURT, o bar do mesmo Palazzo Manfredi, no mesmo terraço do Aroma: está entre os 50 melhores bares do mundo e serve coquetéis sem álcool']}},
+ {ty:'info',h:'Noite',ti:'Malas fechadas',su:'A saída é de madrugada',de:'Não haverá tempo para arrumação amanhã. O transfer chega às 05:30 na porta do prédio.'}
+]},
+{d:'07',m:'OUT',wd:'Quarta',t:'Retorno ao Brasil',s:'Roma · Amsterdã · São Paulo',items:[
+ {ty:'transfer',doc:'transfers',h:'05:30',ti:'Traslado privativo ao aeroporto',su:'Via della Panetteria → Fiumicino T1',de:'Incluso no pacote. Como o hotel não tem recepção, estejam na calçada no horário combinado.'},
+ {ty:'flight',doc:'voos',h:'08:30',ti:'ITA Airways AZ 108 para Amsterdã',su:'Fiumicino T1 → Schiphol · chegada 11:00',de:'Conexão de 2 horas em Amsterdã.'},
+ {ty:'flight',doc:'voos',h:'13:00',ti:'KLM 791 para São Paulo',su:'Schiphol → Guarulhos T3 · chegada 19:50',de:'Localizador BCVVVY. Fim de uma viagem inesquecível.'}
+]}
+];
+
+const DOCS=[
+ {t:'Voos',s:'KLM, ITA Airways e Aeroitalia',i:'flight',c:'#1a3fa0',k:'voos'},
+ {t:'Trens',s:'Eurostar, TGV Lyria, SBB, Bernina Express e Trenord',i:'train',c:'#2e7d32',k:'trens'},
+ {t:'Hotéis',s:'Vouchers das sete hospedagens',i:'hotel',c:'#1b5e20',k:'hoteis'},
+ {t:'Traslados privativos',s:'Sardenha e Roma',i:'directions_car',c:'#6a1b9a',k:'transfers'},
+ {t:'Seguro viagem',s:'HERO 150 · bilhetes individuais',i:'health_and_safety',c:'#b71c1c',k:'seguro'},
+ {t:'Restaurantes',s:'Madame Brasserie e 10_11 Portrait',i:'restaurant',c:'#bf360c',k:'restaurantes'}
+];
+
+const GUIAS=[
+ {t:'Antes de embarcar',i:'checklist',c:'#264273',d:['Passaporte com validade mínima de 6 meses após 07/10/2026','Este app e os vouchers salvos offline no celular dos dois','Cartão de crédito internacional desbloqueado para uso no exterior','Adaptador de tomada universal','Avisar o banco sobre as datas da viagem','Etiqueta com nome nas duas malas despachadas']},
+ {t:'Eletricidade e tomadas',i:'power',c:'#bf360c',d:['Todos os países da viagem operam em 230V','ATENÇÃO: aparelho de 110V NÃO funciona com adaptador simples. O adaptador só muda o formato do plugue e não converte a voltagem','Todos os sete hotéis têm secador de cabelo no quarto. Deixem o de vocês em casa','Holanda, França e Itália usam o padrão europeu de dois pinos redondos','A SUÍÇA usa um plugue próprio, o tipo J, mais estreito. Um adaptador universal resolve os dois','Carregadores de celular, notebook e câmera são bivolt automáticos']},
+ {t:'Transporte nas cidades',i:'directions_subway',c:'#2e7d32',d:['AMSTERDÃ: trem direto de Schiphol até Centraal, 17 minutos, cerca de €6. Cartão por aproximação funciona nos bondes','PARIS: metrô Bir-Hakeim e Dupleix perto do hotel. Cartão Navigo Easy ou aproximação','ZURIQUE: o hotel fica a pé da Hauptbahnhof. App SBB Mobile é o mais confiável','CHUR: ônibus postal linha 182 para Churwalden e o tobogã','MILÃO: metrô ATM, hotel ao lado da Centrale','SARDENHA: sem transporte público útil. Traslados já inclusos','ROMA: metrô Barberini a poucos minutos. Tudo caminhável a partir do hotel']},
+ {t:'Pagamentos e moedas',i:'payments',c:'#1a3fa0',d:['Holanda, França e Itália usam o EURO','A SUÍÇA usa o franco suíço (CHF), não o euro','Quase tudo aceita cartão por aproximação','A Suíça é o país mais caro da viagem: almoço simples entre CHF 25 e 40','Supermercados Coop e Migros salvam o orçamento na Suíça','Gorjeta não é obrigatória em nenhum dos países. Arredondar a conta já é generoso']},
+ {t:'Restaurantes',i:'restaurant_menu',c:'#b71c1c',d:['Almoço das 12h às 14h, jantar a partir das 19h30, mais tarde na Itália','Na Itália existe o COPERTO, taxa fixa por pessoa pelo pão e serviço de mesa. É normal','Baixem o TheFork: é o padrão europeu para reservar restaurante, com descontos de 20 a 50%','BEBIDAS SEM ÁLCOOL: na Itália peçam Crodino ou Sanbittèr. Na França, sirop à l\'eau. Na Suíça, Rivella','Em Roma, evitem restaurantes com fotos dos pratos na porta e garçom chamando na calçada','Café romano: tomem em pé, no balcão. Sentar custa até três vezes mais']},
+ {t:'Bagagem',i:'luggage',c:'#6a1b9a',d:['Voos internacionais KLM: 2 malas despachadas por passageiro','Aeroitalia: bagagem de 32kg despachada inclusa, mais cabine e prioridade','Eurostar: 2 malas de até 75cm por pessoa, mais 1 de mão','TGV LYRIA: etiquetagem das malas com nome e sobrenome é OBRIGATÓRIA','Vocês precisam conseguir carregar toda a bagagem sozinhos nos trens']},
+ {t:'Emergências',i:'emergency',c:'#b71c1c',d:['112: número único de emergência em toda a Europa. Funciona em qualquer país da viagem','Seguro HERO 150: WhatsApp +55 11 5039-9001 · SAC 0800 983 3993','Cobertura médica de US$ 150.000 por pessoa','Bilhete Fabio: G36461369004357210','Bilhete Julia: G36461369004357211','Vigência: 20/09/2026 a 07/10/2026','Falem com a AeroVoo antes de tomar qualquer decisão ou pagar qualquer coisa']}
+];
+
+const CONTATOS=[
+ {sec:'Hotéis'},
+ {t:'Inntel Hotels Amsterdam',s:'+31 20 530 1818',tel:'+31205301818',i:'hotel',c:'#1b5e20'},
+ {t:'Pullman Paris Tour Eiffel',s:'+33 1 44 38 56 00',tel:'+33144385600',i:'hotel',c:'#1b5e20'},
+ {t:'ibis Styles Zurich',s:'+41 44 300 2200',tel:'+41443002200',i:'hotel',c:'#1b5e20'},
+ {t:'ibis Chur',s:'+41 81 252 6060',tel:'+41812526060',i:'hotel',c:'#1b5e20'},
+ {t:'Marconi Hotel Milão',s:'+39 02 6698 5561',tel:'+390266985561',i:'hotel',c:'#1b5e20'},
+ {t:'Club Hotel Baja Sardinia',s:'+39 0789 99006',tel:'+3907899006',i:'hotel',c:'#1b5e20'},
+ {t:'My Trevi Roma',s:'+39 338 897 5779',tel:'+393388975779',i:'hotel',c:'#1b5e20'},
+ {sec:'Reservas e localizadores'},
+ {t:'KLM · voos internacionais',s:'Localizador BCVVVY',i:'flight',c:'#1a3fa0'},
+ {t:'Aeroitalia · Milão e Olbia',s:'F9Z9TW e M9448G',i:'flight',c:'#1a3fa0'},
+ {t:'Eurostar · Amsterdã e Paris',s:'Reserva WFHX44',i:'train',c:'#2e7d32'},
+ {t:'TGV Lyria · Paris e Zurique',s:'Dossiê UZLDCK',i:'train',c:'#2e7d32'},
+ {t:'Bernina Express',s:'Reserva 2979758-1 · +41 81 288 65 65',tel:'+41812886565',i:'train',c:'#2e7d32'},
+ {sec:'Emergência'},
+ {t:'Emergência na Europa',s:'112 · funciona em todos os países da viagem',tel:'112',i:'emergency',c:'#b71c1c'},
+ {t:'Seguro HERO · assistência 24h',s:'+55 11 5039-9001',tel:'+551150399001',i:'health_and_safety',c:'#b71c1c'},
+ {t:'Seguro HERO · SAC',s:'0800 983 3993',tel:'08009833993',i:'support_agent',c:'#b71c1c'}
+];
+
+let cur=0;
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+
+function renderDays(){
+  $('days').innerHTML=DAYS.map((x,i)=>
+    `<div class="day${i===cur?' active':''}" data-i="${i}"><div class="d">${x.d}</div><div class="m">${x.m}</div></div>`).join('');
+  document.querySelectorAll('.day').forEach(el=>el.onclick=()=>{cur=+el.dataset.i;renderDays();renderDay();
+    el.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});});
+}
+
+function renderDay(){
+  const D=DAYS[cur];
+  $('daytitle').innerHTML=`<h2>${esc(D.t)}</h2><p>${esc(D.wd)}, ${D.d}/${D.m==='SET'?'09':'10'} · ${esc(D.s)}</p>`;
+  $('timeline').innerHTML=D.items.map((it,ix)=>{
+    const col=C[it.ty],bg=BG[it.ty];
+    let h=`<div class="tl-item"><div class="tl-dot" style="color:${col};background:${col}"></div>`;
+    h+=`<div class="card" style="background:${bg}">`;
+    h+=`<div class="card-top"><span class="ctype" style="color:${col}">${LB[it.ty]}</span><span class="ctime">${esc(it.h)}</span></div>`;
+    h+=`<div class="ctitle">${esc(it.ti)}</div><div class="csub">${esc(it.su)}</div>`;
+    if(it.de)h+=`<div class="cdet">${esc(it.de)}</div>`;
+    if(it.penalty)h+=`<div class="penalty">${esc(it.penalty)}</div>`;
+    if(it.warn)h+=`<div class="warn">${esc(it.warn)}</div>`;
+    if(it.tel)h+=`<a class="chip" href="tel:${it.tel}"><span class="material-icons-round">call</span>${esc(it.tel)}</a>`;
+    h+=`<div class="cfoot">`;
+    if(it.info)h+=`<button class="btn-info" data-d="${cur}" data-x="${ix}"><span class="material-icons-round">info</span>VER SOBRE ESTE LOCAL</button>`;
+    h+=`<a class="btn-doc" href="${link(it.doc)}" target="_blank"><span class="material-icons-round">folder_open</span>Documentos</a>`;
+    h+=`</div></div></div>`;
+    return h;
+  }).join('');
+  document.querySelectorAll('.btn-info').forEach(b=>{const it=DAYS[+b.dataset.d].items[+b.dataset.x];b.onclick=()=>openSheet(it.info,it.doc);});
+}
+
+function openSheet(o,doc){
+  o=Object.assign({},o);if(doc)o.doc=doc;
+  $('sh-t').textContent=o.t;$('sh-s').textContent=o.s||'';
+  let h='';
+  (o.p||[]).forEach(p=>h+=`<p>${esc(p)}</p>`);
+  if(o.d&&o.d.length){h+='<h4>Dicas práticas</h4><ul>'+o.d.map(x=>`<li>${esc(x)}</li>`).join('')+'</ul>';}
+  h+='<div class="sheet-btns">';
+  if(o.map)h+=`<a class="sheet-btn" target="_blank" href="https://www.google.com/maps/search/?api=1&query=${o.map}"><span class="material-icons-round">map</span>GOOGLE MAPS</a>`;
+  h+=`<a class="sheet-btn" target="_blank" href="${link(o.doc)}"><span class="material-icons-round">folder_open</span>DOCUMENTOS</a>`;
+  h+='</div>';
+  $('sh-b').innerHTML=h;$('sheet').classList.add('on');$('sbg').classList.add('on');
+}
+function closeSheet(){$('sheet').classList.remove('on');$('sbg').classList.remove('on');}
+$('sx').onclick=closeSheet;$('sbg').onclick=closeSheet;
+
+$('doccats').innerHTML=DOCS.map(d=>
+ `<a class="row" href="${link(d.k)}" target="_blank"><div class="row-ic" style="background:${d.c}"><span class="material-icons-round">${d.i}</span></div>
+  <div class="row-tx"><div class="t">${d.t}</div><div class="s">${d.s}</div></div>
+  <div class="row-go"><span class="material-icons-round">chevron_right</span></div></a>`).join('');
+
+$('guias').innerHTML=GUIAS.map((g,i)=>
+ `<div class="row" data-g="${i}" style="cursor:pointer"><div class="row-ic" style="background:${g.c}"><span class="material-icons-round">${g.i}</span></div>
+  <div class="row-tx"><div class="t">${g.t}</div><div class="s">${g.d.length} orientações</div></div>
+  <div class="row-go"><span class="material-icons-round">chevron_right</span></div></div>`).join('');
+document.querySelectorAll('[data-g]').forEach(el=>el.onclick=()=>{
+  const g=GUIAS[+el.dataset.g];openSheet({t:g.t,s:'Guia Internacional AeroVoo',d:g.d});});
+
+$('contatos').innerHTML=CONTATOS.map(c=>{
+ if(c.sec)return `<div class="sect">${c.sec}</div>`;
+ const tag=c.tel?'a':'div',href=c.tel?`href="tel:${c.tel}"`:'';
+ return `<${tag} class="row" ${href}><div class="row-ic" style="background:${c.c}"><span class="material-icons-round">${c.i}</span></div>
+  <div class="row-tx"><div class="t">${c.t}</div><div class="s">${c.s}</div></div>
+  ${c.tel?'<div class="row-go"><span class="material-icons-round">call</span></div>':''}</${tag}>`;}).join('');
+
+document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{
+ document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));t.classList.add('active');
+ ['roteiro','docs','contato'].forEach(n=>$('tab-'+n).classList.add('hide'));
+ $('tab-'+t.dataset.tab).classList.remove('hide');window.scrollTo(0,0);});
+
+renderDays();renderDay();
+</script>
+</body>
+</html>
