@@ -83,6 +83,14 @@ border:2.5px solid #fff;box-shadow:0 0 0 1.5px currentColor}
 .ctype{font-family:'Montserrat',sans-serif;font-size:8.5px;font-weight:800;
 letter-spacing:1.3px;text-transform:uppercase}
 .ctime{font-family:'Montserrat',sans-serif;font-size:12px;font-weight:700;color:var(--text-dark)}
+.bdg{display:inline-block;font-family:'Montserrat',sans-serif;font-size:7.5px;font-weight:800;
+letter-spacing:.9px;padding:3px 7px;border-radius:20px;margin-left:6px;vertical-align:1px}
+.bdg-ok{background:#1b5e20;color:#fff}
+.bdg-sug{background:#f59e0b;color:#3a2600}
+.bdg-pend{background:#1565c0;color:#fff}
+.bdg-livre{background:#cfd8dc;color:#37474f}
+.sugnote{margin-top:9px;background:rgba(245,158,11,.13);border-left:3px solid #f59e0b;
+border-radius:4px;padding:7px 9px;font-size:10.5px;color:#7a4e04;line-height:1.45}
 .ctitle{font-family:'Montserrat',sans-serif;font-size:14px;font-weight:700;
 color:var(--text-dark);line-height:1.3;margin-bottom:3px}
 .csub{font-size:12.5px;color:var(--text-mid);line-height:1.45}
@@ -276,13 +284,13 @@ const DAYS=[
   info:{t:'Inntel Hotels Amsterdam Centre',s:'Nieuwezijds Kolk 19 · Amsterdã',
   p:['Uma das melhores posições da cidade, a poucos minutos a pé da Estação Central, o que resolve a chegada do aeroporto e a saída para Paris.','A Praça Dam, o Jordaan e os canais principais estão a menos de 20 minutos a pé.'],
   d:['Check-in a partir das 15:00 · check-out até as 11:00','Imposto municipal pago no hotel: cerca de R$ 198','Tem secador de cabelo no quarto'],map:'Inntel+Hotels+Amsterdam+Centre'}},
- {ty:'activity',h:'Tarde',ti:'Primeiro contato com a cidade',su:'Praça Dam, canais e Jordaan',de:'Primeiro dia depois de voo longo não é dia de museu. Caminhada leve, jantar cedo e dormir cedo ajudam a ajustar o fuso.',
+ {ty:'activity',h:'Tarde',st:'livre',ti:'Primeiro contato com a cidade',su:'Praça Dam, canais e Jordaan',de:'Primeiro dia depois de voo longo não é dia de museu. Caminhada leve, jantar cedo e dormir cedo ajudam a ajustar o fuso.',
   info:{t:'O que fazer na chegada',s:'Amsterdã · tarde e noite',
   p:['Amsterdã é compacta e quase tudo se faz a pé a partir do hotel.'],
   d:['Praça Dam, a 5 minutos do hotel','As Nove Ruazinhas (De 9 Straatjes), a região mais charmosa para caminhar sem destino','O Begijnhof, um pátio silencioso escondido no centro, entrada gratuita','Para jantar, o bairro do Jordaan tem os melhores bistrôs','Cuidado com as ciclovias: a bicicleta tem preferência e os ciclistas não desviam']}}
 ]},
 {d:'22',m:'SET',wd:'Terça',t:'Amsterdã e viagem para Paris',s:'Manhã livre · Eurostar à tarde',items:[
- {ty:'food',h:'Livre',ti:'Winkel 43 · a torta de maçã',su:'Noordermarkt · bairro do Jordaan',de:'O appeltaart mais famoso da Holanda. Fatia enorme, quente, com montanha de chantilly. Como vocês já terão tomado café no hotel, vale deixar para o meio da manhã ou início da tarde. Vocês decidem a hora.',
+ {ty:'food',h:'Livre',st:'sug',ti:'Winkel 43 · a torta de maçã',su:'Noordermarkt · bairro do Jordaan',de:'O appeltaart mais famoso da Holanda. Fatia enorme, quente, com montanha de chantilly. Como vocês já terão tomado café no hotel, vale deixar para o meio da manhã ou início da tarde. Vocês decidem a hora.',
   info:{t:'Winkel 43',s:'Noordermarkt · Jordaan',
   p:['Serve o appeltaart mais famoso da Holanda desde sempre: massa grossa, recheio de maçã com canela, servido quente com chantilly.'],
   d:['Cerca de 15 minutos a pé do hotel','O caminho até lá passa pelos canais mais bonitos da cidade','Costuma ter fila, mas anda rápido','Um café da manhã tardio ali é a melhor despedida de Amsterdã'],map:'Winkel+43+Amsterdam'}},
@@ -295,34 +303,34 @@ const DAYS=[
   d:['Check-in a partir das 16:00 · check-out até as 11:00','No último andar funciona o Frame, restaurante e bar com vista panorâmica','Metrô Bir-Hakeim (linha 6) e Dupleix a poucos minutos a pé','Imposto municipal pago no hotel: cerca de R$ 302'],map:'Pullman+Paris+Tour+Eiffel'}}
 ]},
 {d:'23',m:'SET',wd:'Quarta',t:'Paris clássica',s:'Torre Eiffel e centro histórico',items:[
- {ty:'activity',h:'09:00',ti:'Torre Eiffel',su:'Subida logo na abertura',de:'Menos fila e melhor luz. Ingresso com horário marcado comprado antecipadamente. Reservem cerca de 1h30.',
+ {ty:'activity',h:'09:00',st:'sug',ti:'Torre Eiffel',su:'Subida logo na abertura',de:'Menos fila e melhor luz. Ingresso com horário marcado comprado antecipadamente. Reservem cerca de 1h30.',
   info:{t:'Torre Eiffel',s:'Champ de Mars · a 10 min a pé do hotel',
   p:['Nasceu para ser provisória: construída para a Exposição Universal de 1889, deveria ser desmontada vinte anos depois. Só foi poupada porque servia como antena de rádio.'],
   d:['Subam na abertura, quando a fila é menor','O Champ de Mars, atrás da torre, entrega a foto clássica','A cada hora cheia depois do anoitecer ela cintila por 5 minutos','O melhor ponto para ver isso é o Trocadéro, do outro lado do rio'],map:'Tour+Eiffel+Paris'}},
- {ty:'food',h:'12:30',ti:'Almoço na Rue Cler',su:'Rua-mercado a céu aberto',de:'Fechada para carros, com queijarias, padarias e bancas de frutas. Peçam o menu do dia, bem mais barato que a carta.',
+ {ty:'food',h:'12:30',st:'sug',ti:'Almoço na Rue Cler',su:'Rua-mercado a céu aberto',de:'Fechada para carros, com queijarias, padarias e bancas de frutas. Peçam o menu do dia, bem mais barato que a carta.',
   info:{t:'Rue Cler',s:'A 10 minutos a pé do hotel',
   p:['É a Paris de bairro, sem turista de ônibus. Rua-mercado fechada para carros, com bistrôs de calçada.'],
   d:['Ótima também para montar um piquenique de queijo e pão para o Champ de Mars','Quase todo bistrô francês tem menu du jour no almoço, com preço fixo bem abaixo do jantar'],map:'Rue+Cler+Paris'}},
- {ty:'activity',h:'14:30',ti:'Notre-Dame e Île de la Cité',su:'Entrada gratuita na catedral',de:'A fila parece longa mas anda rápido. Deem a volta completa por fora: a parte de trás, com os arcobotantes, é mais bonita que a fachada.',
+ {ty:'activity',h:'14:30',st:'sug',ti:'Notre-Dame e Île de la Cité',su:'Entrada gratuita na catedral',de:'A fila parece longa mas anda rápido. Deem a volta completa por fora: a parte de trás, com os arcobotantes, é mais bonita que a fachada.',
   info:{t:'Île de la Cité',s:'Coração histórico de Paris',
   d:['Notre-Dame: entrada gratuita','Sainte-Chapelle, a poucos metros: quinze vitrais do século XIII que sobem quinze metros. Ingresso à parte e vale muito','Île Saint-Louis: parada obrigatória na Berthillon, a sorveteria mais tradicional de Paris, desde 1954'],map:'Ile+de+la+Cite+Paris'}},
- {ty:'activity',h:'17:30',ti:'Saint-Germain-des-Prés',su:'Café de Flore ou Les Deux Magots',de:'Os cafés de Sartre e Simone de Beauvoir. Paga-se pelo endereço, mas sentar na calçada faz parte da experiência.'},
- {ty:'food',h:'19:30',ti:'Jantar em Saint-Germain',su:'Le Procope ou um bistrô do bairro',de:'O Le Procope funciona desde 1686 e é o restaurante mais antigo de Paris. Reservem pelo TheFork durante a tarde.'},
- {ty:'activity',h:'22:00',ti:'O cintilar da Torre Eiffel',su:'Da varanda do quarto ou do Trocadéro',de:'Na hora cheia a torre pisca por cinco minutos, com milhares de luzes brancas sobre a estrutura dourada.'}
+ {ty:'activity',h:'17:30',st:'livre',ti:'Saint-Germain-des-Prés',su:'Café de Flore ou Les Deux Magots',de:'Os cafés de Sartre e Simone de Beauvoir. Paga-se pelo endereço, mas sentar na calçada faz parte da experiência.'},
+ {ty:'food',h:'19:30',st:'sug',ti:'Jantar em Saint-Germain',su:'Le Procope ou um bistrô do bairro',de:'O Le Procope funciona desde 1686 e é o restaurante mais antigo de Paris. Reservem pelo TheFork durante a tarde.'},
+ {ty:'activity',h:'22:00',st:'livre',ti:'O cintilar da Torre Eiffel',su:'Da varanda do quarto ou do Trocadéro',de:'Na hora cheia a torre pisca por cinco minutos, com milhares de luzes brancas sobre a estrutura dourada.'}
 ]},
 {d:'24',m:'SET',wd:'Quinta',t:'Compras, vistas e o Sena',s:'Champs-Élysées, Lafayette e barco',items:[
- {ty:'activity',h:'10:30',ti:'Champs-Élysées',su:'Da Place de la Concorde ao Arco do Triunfo',de:'Cerca de 2 quilômetros em aclive suave, com lojas, cafés de calçada e vitrines.'},
- {ty:'activity',h:'12:00',ti:'Arco do Triunfo',su:'Terraço com vista de 360 graus',de:'Pega as doze avenidas se abrindo em estrela, com a Torre Eiffel ao fundo. Bem menos concorrido que a própria torre.',
+ {ty:'activity',h:'10:30',st:'livre',ti:'Champs-Élysées',su:'Da Place de la Concorde ao Arco do Triunfo',de:'Cerca de 2 quilômetros em aclive suave, com lojas, cafés de calçada e vitrines.'},
+ {ty:'activity',h:'12:00',st:'sug',ti:'Arco do Triunfo',su:'Terraço com vista de 360 graus',de:'Pega as doze avenidas se abrindo em estrela, com a Torre Eiffel ao fundo. Bem menos concorrido que a própria torre.',
   warn:'Usem a passagem subterrânea para chegar até ele. Nunca atravessem a rotatória na rua.'},
- {ty:'activity',h:'14:30',ti:'Galeries Lafayette',su:'Boulevard Haussmann · metrô Chaussée d\'Antin',de:'Cúpula de vitrais art nouveau de 1912, com dez andares de sacadas douradas em volta.',
+ {ty:'activity',h:'14:30',st:'livre',ti:'Galeries Lafayette',su:'Boulevard Haussmann · metrô Chaussée d\'Antin',de:'Cúpula de vitrais art nouveau de 1912, com dez andares de sacadas douradas em volta.',
   info:{t:'Galeries Lafayette',s:'Boulevard Haussmann · Paris',
   p:['Mesmo sem comprar nada, vale entrar. É um dos interiores mais impressionantes da cidade.'],
   d:['Subam ao TERRAÇO, no último andar: acesso gratuito e vista para os telhados de Paris, a Ópera Garnier e a Torre Eiffel','Turistas de fora da União Europeia têm direito a isenção de impostos em compras acima de um valor mínimo. Perguntem sobre o tax free e guardem as notas','O prédio ao lado, o Lafayette Gourmet, é um mercado gastronômico enorme'],map:'Galeries+Lafayette+Haussmann'}},
- {ty:'activity',h:'19:30',ti:'Passeio de barco pelo Sena',su:'Port de la Bourdonnais · aos pés da torre',de:'Cerca de uma hora. A partida pega o fim do pôr do sol, por volta das 19h40, e a cidade se acendendo.',
+ {ty:'activity',h:'19:30',st:'sug',ti:'Passeio de barco pelo Sena',su:'Port de la Bourdonnais · aos pés da torre',de:'Cerca de uma hora. A partida pega o fim do pôr do sol, por volta das 19h40, e a cidade se acendendo.',
   info:{t:'Barco no Sena',s:'Port de la Bourdonnais · 10 min a pé do hotel',
   p:['Às oito em ponto vocês estarão no meio do rio, e a Torre Eiffel cintila por cinco minutos. Ver isso de dentro do barco, com a luz refletindo na água, é melhor que de qualquer ponto em terra.'],
   d:['Passa por Notre-Dame, Louvre, Musée d\'Orsay, Pont Alexandre III e Conciergerie','Sentem no convés aberto, na parte de cima','Levem um casaco: no fim de setembro esfria bastante sobre a água','Cheguem 20 minutos antes do horário do barco'],map:'Port+de+la+Bourdonnais+Paris'}},
- {ty:'food',doc:'restaurantes',h:'21:00',ti:'Madame Brasserie · Torre Eiffel',su:'1º andar · 57 metros de altura · reserva confirmada',de:'Cozinha do chef Thierry Marx. A reserva inclui o acesso à torre.',
+ {ty:'food',doc:'restaurantes',h:'21:00',st:'ok',ti:'Madame Brasserie · Torre Eiffel',su:'1º andar · 57 metros de altura · reserva confirmada',de:'Cozinha do chef Thierry Marx. A reserva inclui o acesso à torre.',
   warn:'Peçam a mesa do LADO DO SENA: é a que olha para o rio, a Ponte de Iéna e o Trocadéro. As mesas do miolo do salão não têm janela.',
   info:{t:'Madame Brasserie',s:'1º andar da Torre Eiffel',
   p:['Restaurante do chef Thierry Marx no primeiro andar da torre, a 57 metros de altura.'],
@@ -330,7 +338,7 @@ const DAYS=[
  {ty:'info',h:'Noite',ti:'Etiquetem as malas',su:'Exigência da SNCF para o trem de amanhã',de:'Coloquem etiqueta com nome e sobrenome nas duas malas despachadas. É conferido no embarque.'}
 ]},
 {d:'25',m:'SET',wd:'Sexta',t:'Paris para Zurique',s:'TGV Lyria · 4h04',items:[
- {ty:'food',h:'08:45',ti:'Café da manhã no Le Train Bleu',su:'Dentro da própria Gare de Lyon',de:'Salão Belle Époque de 1901, com tetos pintados e lustres dourados, tombado como monumento histórico.',
+ {ty:'food',h:'08:45',st:'sug',ti:'Café da manhã no Le Train Bleu',su:'Dentro da própria Gare de Lyon',de:'Salão Belle Époque de 1901, com tetos pintados e lustres dourados, tombado como monumento histórico.',
   info:{t:'Le Train Bleu',s:'Gare de Lyon · Paris',
   p:['Um dos salões mais bonitos de Paris, aberto em 1901 e tombado como monumento histórico. Fica dentro da própria estação de onde vocês partem.'],
   d:['Serve café da manhã','Vale chegar com folga para aproveitar o salão','Se preferirem, o café da manhã do hotel também resolve'],map:'Le+Train+Bleu+Gare+de+Lyon'}},
@@ -341,7 +349,7 @@ const DAYS=[
   info:{t:'ibis Styles Zurich City Center',s:'Stampfenbachstrasse 60 · Zurique',
   p:['Para uma noite entre dois trens, o que mais importa é a distância até a Hauptbahnhof, e este hotel resolve isso a pé.'],
   d:['Check-in a partir das 15:00 · check-out até as 11:00','Bahnhofstrasse, Cidade Velha e Lago de Zurique ao alcance de uma caminhada curta','A Suíça não usa euro: a moeda é o franco suíço (CHF)','Quase tudo aceita cartão, não é necessário trocar dinheiro'],map:'ibis+Styles+Zurich+City+Center'}},
- {ty:'food',h:'19:30',ti:'Jantar no Zeughauskeller',su:'Cervejaria histórica em antigo arsenal',de:'O prato símbolo de Zurique é o Zürcher Geschnetzeltes: tirinhas de vitela em molho cremoso, servidas com rösti.'}
+ {ty:'food',h:'19:30',st:'sug',ti:'Jantar no Zeughauskeller',su:'Cervejaria histórica em antigo arsenal',de:'O prato símbolo de Zurique é o Zürcher Geschnetzeltes: tirinhas de vitela em molho cremoso, servidas com rösti.'}
 ]},
 {d:'26',m:'SET',wd:'Sábado',t:'Zurique para Chur',s:'Entrada nos Alpes de Graubünden',items:[
  {ty:'train',doc:'trens',h:'09:07',ti:'Trem IC 763 para Chur',su:'Zürich HB → Chur · chegada 10:22',de:'Cerca de 1h15, já dentro da paisagem alpina. Estejam na estação às 08:50.',
@@ -350,10 +358,10 @@ const DAYS=[
   info:{t:'ibis Chur',s:'Richtstrasse 19 · Chur',
   p:['Chur é a cidade mais antiga da Suíça, com centro medieval preservado e cercada pelos Alpes de Graubünden.'],
   d:['Check-in a partir das 15:00 · check-out até as 12:00','Fica na região de Chur West, não na estação central','Combinem com a recepção o transporte até a estação central na manhã do dia 28, para o Bernina Express','Taxa municipal de CHF 1,80 por pessoa/noite paga no hotel'],map:'ibis+Chur+Richtstrasse'}},
- {ty:'activity',h:'Tarde',ti:'Centro medieval de Chur',su:'A cidade mais antiga da Suíça',de:'Ruelas de pedra, catedral e praças. Dá para conhecer tudo a pé em uma tarde.'}
+ {ty:'activity',h:'Tarde',st:'livre',ti:'Centro medieval de Chur',su:'A cidade mais antiga da Suíça',de:'Ruelas de pedra, catedral e praças. Dá para conhecer tudo a pé em uma tarde.'}
 ]},
 {d:'27',m:'SET',wd:'Domingo',t:'Tobogã Pradaschier',s:'Dia livre nos Alpes',items:[
- {ty:'activity',h:'Manhã',ti:'Tobogã de montanha Pradaschier',su:'Churwalden · a 15 minutos de Chur',de:'3.060 metros de pista, 31 curvas, 480 metros de desnível. Recorde do Guinness como a pista guiada por trilhos mais longa da Europa.',
+ {ty:'activity',h:'Manhã',st:'sug',ti:'Tobogã de montanha Pradaschier',su:'Churwalden · a 15 minutos de Chur',de:'3.060 metros de pista, 31 curvas, 480 metros de desnível. Recorde do Guinness como a pista guiada por trilhos mais longa da Europa.',
   tel:'+41813562180',
   warn:'A pista não opera com chuva. Se o dia amanhecer fechado, liguem antes de sair para confirmar.',
   info:{t:'Pradaschier',s:'Churwalden · Graubünden',
@@ -368,19 +376,19 @@ const DAYS=[
   info:{t:'Bernina Express',s:'Chur → Tirano · 4h32',
   p:['Patrimônio da Humanidade pela UNESCO, percorre duas ferrovias históricas de montanha construídas entre 1896 e 1904.'],
   d:['Sobe até 2.253 metros no Ospizio Bernina, com o Lago Bianco de um lado','Passa por Filisur, St. Moritz e Alp Grüm, com vista para o glaciar do Palü','Atravessa o Viaduto Circular de Brusio, uma espiral de pedra a céu aberto, logo antes de Tirano','55 túneis e 196 pontes, com rampas de até 7% vencidas só por aderência','Wi-Fi gratuito a bordo e aplicativo guia da ferrovia','Pagamento a bordo SOMENTE por cartão','Levem os passaportes: vocês cruzam da Suíça para a Itália durante o trajeto'],map:'Chur+Bahnhof'}},
- {ty:'food',h:'13:00',ti:'Almoço em Tirano',su:'Cerca de duas horas de intervalo',de:'O Santuário da Madonna di Tirano fica a poucos passos da estação e vale a visita.'},
+ {ty:'food',h:'13:00',st:'sug',ti:'Almoço em Tirano',su:'Cerca de duas horas de intervalo',de:'O Santuário da Madonna di Tirano fica a poucos passos da estação e vale a visita.'},
  {ty:'train',doc:'trens',h:'15:08',ti:'Trenord 2833 para Milão',su:'Tirano → Milano Centrale · chegada 17:43',de:'Trem regional direto, 2h35. Sem reserva de assento: sentem onde quiserem.'},
- {ty:'hotel',doc:'hoteis',h:'18:00',ti:'Marconi Hotel',su:'Quarto casal · buffet de café da manhã · 2 noites',de:'Via Fabio Filzi 3, nas proximidades da Milano Centrale.',tel:'+390266985561',
+ {ty:'hotel',doc:'hoteis',h:'18:00',ti:'Marconi Hotel',su:'1 cama de casal e 1 individual · café da manhã · 2 noites',de:'Via Fabio Filzi 3, nas proximidades da Milano Centrale.',tel:'+390266985561',
   info:{t:'Marconi Hotel',s:'Via Fabio Filzi 3 · Milão',
   p:['Fica nas proximidades da Milano Centrale, exatamente onde o trem de Tirano chega.'],
   d:['Check-in a partir das 15:00 · check-out até as 11:30','Metrô leva ao Duomo em poucos minutos','A Centrale é o ponto de partida para o Lago di Como, a cerca de 1 hora de trem','Linate fica a 20 a 25 minutos de carro','Imposto municipal pago no hotel: cerca de R$ 238'],map:'Marconi+Hotel+Milano+Via+Fabio+Filzi'}},
- {ty:'food',h:'20:00',ti:'Aperitivo nos Navigli',su:'A tradição mais divertida de Milão',de:'Pede-se uma bebida entre 8 e 15 euros e vem um bufê de comida junto, sem custo. Peçam um Crodino ou um Sanbittèr, que são os aperitivos analcoólicos clássicos italianos.'}
+ {ty:'food',h:'20:00',st:'sug',ti:'Aperitivo nos Navigli',su:'A tradição mais divertida de Milão',de:'Pede-se uma bebida entre 8 e 15 euros e vem um bufê de comida junto, sem custo. Peçam um Crodino ou um Sanbittèr, que são os aperitivos analcoólicos clássicos italianos.'}
 ]},
 {d:'29',m:'SET',wd:'Terça',t:'Milão, dia livre',s:'Cidade ou Lago di Como',items:[
- {ty:'activity',h:'Dia',ti:'Duomo, Galleria e Navigli',su:'Ou bate-volta ao Lago di Como',de:'O trem para Varenna sai da Milano Centrale e leva cerca de 1 hora, de onde sai a balsa para Bellagio.',
+ {ty:'activity',h:'Dia',st:'sug',ti:'Duomo, Galleria e Navigli',su:'Ou bate-volta ao Lago di Como',de:'O trem para Varenna sai da Milano Centrale e leva cerca de 1 hora, de onde sai a balsa para Bellagio.',
   info:{t:'Opções para o dia',s:'Milão · 29 de setembro',
   d:['NA CIDADE: Duomo, Galleria Vittorio Emanuele II, Castelo Sforzesco e os canais dos Navigli','FORA: Lago di Como, com trem até Varenna e balsa para Bellagio. Fim de setembro é excelente no lago','O Luini, ao lado do Duomo, funciona desde 1888 e vende um único produto, o panzerotto, um pastel frito de tomate e muçarela','A Pasticceria Marchesi, de 1824 e hoje da Prada, tem salão no primeiro andar da Galleria com vista para a cúpula','Terrazza Aperol, na Piazza del Duomo: terraço com vista frontal da catedral, com versão analcoólica do spritz']}},
- {ty:'food',doc:'restaurantes',h:'20:00',ti:'10_11 · Portrait Milano',su:'Corso Venezia 11 · reserva confirmada',de:'Pátio com colunata do século XVI, no coração do Quadrilátero da Moda. Entrada também pela Via Sant\'Andrea 10.',
+ {ty:'food',doc:'restaurantes',h:'20:00',st:'ok',ti:'10_11 · Portrait Milano',su:'Corso Venezia 11 · reserva confirmada',de:'Pátio com colunata do século XVI, no coração do Quadrilátero da Moda. Entrada também pela Via Sant\'Andrea 10.',
   tel:'+390236799585',
   info:{t:'10_11 Portrait Milano',s:'Corso Venezia 11 · Milão',
   p:['Um dos endereços mais elegantes da cidade, em um pátio com colunata do século XVI dentro do Quadrilátero da Moda.'],
@@ -395,25 +403,25 @@ const DAYS=[
   info:{t:'Club Hotel Baja Sardinia',s:'Baja Sardinia · Costa Smeralda',
   p:['No coração da Costa Smeralda, com praia privativa própria e a praia pública de Cala Battistoni a poucos passos.'],
   d:['Check-in a partir das 14:00 · check-out até as 07:00','Palau, de onde saem os barcos para La Maddalena, fica a 15 minutos','Porto Cervo a cerca de 20 minutos','O restaurante SOMU, uma estrela Michelin, funciona dentro do próprio hotel','O centrinho de Baja Sardinia, com lojas, gelaterias e bares, fica a poucos minutos a pé'],map:'Club+Hotel+Baja+Sardinia'}},
- {ty:'food',h:'20:00',ti:'Jantar no SOMU',su:'Uma estrela Michelin · dentro do hotel',de:'Chef Salvatore Camedda, com o conceito de uma Sardenha contemporânea. Entrou na lista dos 50 melhores da Itália em cozinha de autor.',
+ {ty:'food',h:'20:00',st:'pend',ti:'Jantar no SOMU',su:'Uma estrela Michelin · dentro do hotel',de:'Chef Salvatore Camedda, com o conceito de uma Sardenha contemporânea. Entrou na lista dos 50 melhores da Itália em cozinha de autor.',
   info:{t:'Somu',s:'Dentro do Club Hotel Baja Sardinia',
   p:['Uma estrela Michelin, sem precisar sair do hotel nem pegar carro. É a experiência gastronômica mais alta de toda a viagem.'],
   d:['Chef Salvatore Camedda','Reinterpreta produtos da ilha como a bottarga, o pane carasau e o peixe da costa','Vale perguntar se há harmonização analcoólica para o menu degustação']}}
 ]},
 {d:'01',m:'OUT',wd:'Quinta',t:'Sardenha',s:'Primeiro dia inteiro de praia',items:[
- {ty:'activity',h:'Dia',ti:'Praias da Costa Smeralda',su:'Cala Battistoni, Capriccioli, Liscia Ruja',de:'O hotel tem praia privativa própria, e a praia pública de Cala Battistoni fica a poucos passos.',
+ {ty:'activity',h:'Dia',st:'livre',ti:'Praias da Costa Smeralda',su:'Cala Battistoni, Capriccioli, Liscia Ruja',de:'O hotel tem praia privativa própria, e a praia pública de Cala Battistoni fica a poucos passos.',
   info:{t:'Praias da região',s:'Costa Smeralda',
   d:['CALA BATTISTONI: a praia da porta do hotel','CAPRICCIOLI: areia clara e enseadas protegidas, uma das mais bonitas da costa','LISCIA RUJA: a maior praia de areia da região, águas rasas e calmas','CALA GRANU: pequena e tranquila, perto de Porto Cervo','Não há transporte público útil na região. As praias mais bonitas só se alcança de carro']}},
- {ty:'food',h:'20:00',ti:'Jantar no centrinho',su:'Baja Sardinia · a poucos minutos a pé',de:'Pracinha com lojas, gelaterias, bares e restaurantes, animada no fim da tarde.'}
+ {ty:'food',h:'20:00',st:'sug',ti:'Jantar no centrinho',su:'Baja Sardinia · a poucos minutos a pé',de:'Pracinha com lojas, gelaterias, bares e restaurantes, animada no fim da tarde.'}
 ]},
 {d:'02',m:'OUT',wd:'Sexta',t:'La Maddalena',s:'Passeio de barco pelo arquipélago',items:[
- {ty:'activity',h:'Dia',ti:'Barco pelo arquipélago de La Maddalena',su:'Dia inteiro · a confirmar com a recepção',de:'Navegação entre Budelli, Spargi e Caprera, com paradas para banho em enseadas de areia branquíssima.',warn:'Este passeio é reservado diretamente com a recepção do hotel. Confirmem disponibilidade, horário e ponto de saída assim que chegarem.',
+ {ty:'activity',h:'Dia',st:'pend',ti:'Barco pelo arquipélago de La Maddalena',su:'Dia inteiro · a confirmar com a recepção',de:'Navegação entre Budelli, Spargi e Caprera, com paradas para banho em enseadas de areia branquíssima.',warn:'Este passeio é reservado diretamente com a recepção do hotel. Confirmem disponibilidade, horário e ponto de saída assim que chegarem.',
   info:{t:'La Maddalena',s:'Arquipélago · Parque Nacional',
   p:['Costuma virar a lembrança mais forte de toda a viagem. Águas de um turquesa que quase não parece real.'],
   d:['Paradas em Budelli, com a famosa praia rosa, Spargi e Caprera','Cala Coticcio, em Caprera, é chamada de Taiti da Sardenha','A maioria dos passeios inclui almoço a bordo','Levem protetor solar, chapéu e uma camiseta para o sol do meio-dia','Avisem o operador que vocês não consomem álcool, para prepararem algo sem'],map:'Palau+Sardinia+porto'}}
 ]},
 {d:'03',m:'OUT',wd:'Sábado',t:'Costa Smeralda de carro',s:'Passeio privativo',items:[
- {ty:'activity',h:'Dia',ti:'Passeio privativo pela costa',su:'Com motorista · a confirmar com a recepção',de:'Roteiro livre pelas praias da região, com passagem por Porto Cervo e San Pantaleo.',warn:'Este passeio é organizado diretamente pela recepção do hotel. Confirmem itinerário, duração e valor assim que chegarem.',
+ {ty:'activity',h:'Dia',st:'pend',ti:'Passeio privativo pela costa',su:'Com motorista · a confirmar com a recepção',de:'Roteiro livre pelas praias da região, com passagem por Porto Cervo e San Pantaleo.',warn:'Este passeio é organizado diretamente pela recepção do hotel. Confirmem itinerário, duração e valor assim que chegarem.',
   info:{t:'Costa Smeralda',s:'Passeio de carro',
   d:['PORTO CERVO: marinas, boutiques e a Piazzetta, a cerca de 20 minutos','SAN PANTALEO: vila no alto de uma colina, entre picos de granito vermelho. Linda no fim da tarde','BELVEDERE: mirante com vista panorâmica da costa nordeste','As praias de Capriccioli, Liscia Ruja e Spiaggia del Principe ficam todas no caminho']}},
  {ty:'info',h:'Noite',ti:'Confirmem o código de Roma',su:'Prazo final para o contato com o hotel',de:'O hotel de Roma não tem recepção. O código de acesso precisa estar em mãos antes da chegada de amanhã.'}
@@ -428,27 +436,27 @@ const DAYS=[
   info:{t:'My Trevi Charming & Luxury Rooms',s:'Via della Panetteria 10 · Roma',
   p:['O hotel mais bem avaliado de toda a viagem, a poucos passos da Fontana di Trevi, no coração absoluto do centro histórico.'],
   d:['Check-in a partir das 14:30, MEDIANTE CÓDIGO DE ACESSO','Check-out até as 11:00','Não há recepção: contato com a propriedade obrigatório 24h antes','Somente hospedagem, sem café da manhã incluso','Metrô Barberini (linha A) a poucos minutos a pé','Fontana di Trevi, Panteão, Piazza di Spagna e Piazza Navona todos a uma caminhada'],map:'Via+della+Panetteria+10+Roma'}},
- {ty:'activity',h:'Tarde',ti:'Centro histórico',su:'Fontana di Trevi, Panteão e Piazza Navona',de:'Os Museus do Vaticano fecham aos domingos, então hoje é dia de caminhar pelo centro.'},
+ {ty:'activity',h:'Tarde',st:'livre',ti:'Centro histórico',su:'Fontana di Trevi, Panteão e Piazza Navona',de:'Os Museus do Vaticano fecham aos domingos, então hoje é dia de caminhar pelo centro.'},
  {ty:'info',h:'Noite',ti:'Despertador às 07:00',su:'Vale a pena, e muito',de:'Amanhã de manhã a Fontana di Trevi fica quase vazia. Estando a 5 minutos dali, vocês têm um privilégio que quem se hospeda longe não tem.'}
 ]},
 {d:'05',m:'OUT',wd:'Segunda',t:'Vaticano',s:'Museus e Capela Sistina',items:[
- {ty:'activity',h:'07:00',ti:'Fontana di Trevi vazia',su:'A 5 minutos a pé do hotel',de:'Entre 6h30 e 7h30 a praça fica quase vazia e a luz da manhã bate de frente na fachada branca.',
+ {ty:'activity',h:'07:00',st:'livre',ti:'Fontana di Trevi vazia',su:'A 5 minutos a pé do hotel',de:'Entre 6h30 e 7h30 a praça fica quase vazia e a luz da manhã bate de frente na fachada branca.',
   info:{t:'Fontana di Trevi de manhã',s:'A 5 minutos do hotel',
   p:['Durante o dia é impossível fotografar sem uma multidão na frente. De manhã cedo, vocês conseguem a foto do casal sozinhos com a fonte inteira ao fundo.'],
   d:['Levem a moeda para jogar: de costas, com a mão direita por cima do ombro esquerdo','Quem joga uma moeda volta a Roma','Aproveitem e caminhem até a Piazza di Spagna e o Panteão, também vazios a essa hora','Depois, café e cornetto no balcão de qualquer bar do bairro'],map:'Fontana+di+Trevi+Roma'}},
- {ty:'activity',h:'10:00',ti:'Museus do Vaticano e Capela Sistina',su:'Ingresso com horário marcado',de:'O percurso completo leva de 3 a 4 horas. A Capela Sistina fica no fim do trajeto, então vale poupar energia para ela.',
+ {ty:'activity',h:'10:00',st:'sug',ti:'Museus do Vaticano e Capela Sistina',su:'Ingresso com horário marcado',de:'O percurso completo leva de 3 a 4 horas. A Capela Sistina fica no fim do trajeto, então vale poupar energia para ela.',
   info:{t:'Museus do Vaticano',s:'Cidade do Vaticano',
   d:['Abrem normalmente às segundas. Fecham aos domingos, exceto no último do mês','Comprem o ingresso com horário marcado e antecedência','Metrô Barberini (linha A) leva direto à região','Considerem a visita guiada: o acervo é imenso e um bom guia transforma a experiência','Ombros e joelhos cobertos são obrigatórios'],map:'Musei+Vaticani'}},
- {ty:'food',h:'13:30',ti:'Almoço em Prati',su:'Ao lado do Vaticano',de:'É onde os romanos realmente comem naquela região, longe das armadilhas turísticas.'},
- {ty:'food',h:'20:00',ti:'Jantar romano',su:'Armando al Pantheon ou Roscioli',de:'O Armando funciona desde 1961 com a mesma família. O Roscioli é uma salumeria com cozinha, com uma das melhores carbonaras da cidade. Os dois precisam de reserva antecipada.'}
+ {ty:'food',h:'13:30',st:'sug',ti:'Almoço em Prati',su:'Ao lado do Vaticano',de:'É onde os romanos realmente comem naquela região, longe das armadilhas turísticas.'},
+ {ty:'food',h:'20:00',st:'sug',ti:'Jantar romano',su:'Armando al Pantheon ou Roscioli',de:'O Armando funciona desde 1961 com a mesma família. O Roscioli é uma salumeria com cozinha, com uma das melhores carbonaras da cidade. Os dois precisam de reserva antecipada.'}
 ]},
 {d:'06',m:'OUT',wd:'Terça',t:'Roma antiga',s:'Último dia na Europa',items:[
- {ty:'activity',h:'09:00',ti:'Coliseu, Fórum Romano e Palatino',su:'Ingresso combinado com horário marcado',de:'Entrem pelo Coliseu, sigam para o Fórum e terminem no Palatino, que oferece a melhor vista do conjunto.',
+ {ty:'activity',h:'09:00',st:'sug',ti:'Coliseu, Fórum Romano e Palatino',su:'Ingresso combinado com horário marcado',de:'Entrem pelo Coliseu, sigam para o Fórum e terminem no Palatino, que oferece a melhor vista do conjunto.',
   info:{t:'Coliseu e Fórum',s:'Roma antiga',
   d:['Ingresso combinado dá acesso aos três','Cheguem cedo: faz enorme diferença nas filas','O Palatino tem a melhor vista do conjunto','O bairro de Monti, a poucos minutos, é ótimo para o almoço'],map:'Colosseo+Roma'}},
- {ty:'food',h:'13:00',ti:'Almoço no Gueto Judeu',su:'Carciofi alla giudia',de:'Alcachofra inteira frita até ficar crocante como uma flor. Outubro é exatamente o começo da temporada.'},
- {ty:'activity',h:'16:00',ti:'Trastevere',su:'Do outro lado do Tibre',de:'O bairro mais animado de Roma, com ruas de paralelepípedo e um clima que não existe em nenhum outro lugar.'},
- {ty:'food',h:'20:00',ti:'Jantar de despedida',su:'Aroma ou Imàgo',de:'O Aroma tem uma estrela Michelin e terraço com vista frontal do Coliseu. O Imàgo fica no topo da Escadaria da Praça de Espanha, também estrelado, com vista panorâmica de Roma.',
+ {ty:'food',h:'13:00',st:'sug',ti:'Almoço no Gueto Judeu',su:'Carciofi alla giudia',de:'Alcachofra inteira frita até ficar crocante como uma flor. Outubro é exatamente o começo da temporada.'},
+ {ty:'activity',h:'16:00',st:'livre',ti:'Trastevere',su:'Do outro lado do Tibre',de:'O bairro mais animado de Roma, com ruas de paralelepípedo e um clima que não existe em nenhum outro lugar.'},
+ {ty:'food',h:'20:00',st:'sug',ti:'Jantar de despedida',su:'Aroma ou Imàgo',de:'O Aroma tem uma estrela Michelin e terraço com vista frontal do Coliseu. O Imàgo fica no topo da Escadaria da Praça de Espanha, também estrelado, com vista panorâmica de Roma.',
   info:{t:'Opções para a última noite',s:'Roma',
   d:['AROMA, no Palazzo Manfredi: 1 estrela Michelin, 28 lugares, vista frontal do Coliseu. Dress code casual elegante','IMÀGO, no Hotel Hassler: 1 estrela Michelin, no topo da Escadaria da Praça de Espanha, a 10 minutos a pé do hotel','THE COURT, o bar do mesmo Palazzo Manfredi, no mesmo terraço do Aroma: está entre os 50 melhores bares do mundo e serve coquetéis sem álcool']}},
  {ty:'info',h:'Noite',ti:'Malas fechadas',su:'A saída é de madrugada',de:'Não haverá tempo para arrumação amanhã. O transfer chega às 05:30 na porta do prédio.'}
@@ -518,11 +526,16 @@ function renderDay(){
     const col=C[it.ty],bg=BG[it.ty];
     let h=`<div class="tl-item"><div class="tl-dot" style="color:${col};background:${col}"></div>`;
     h+=`<div class="card" style="background:${bg}">`;
-    h+=`<div class="card-top"><span class="ctype" style="color:${col}">${LB[it.ty]}</span><span class="ctime">${esc(it.h)}</span></div>`;
+    const ST={ok:['CONFIRMADO','bdg-ok'],sug:['SUGESTÃO','bdg-sug'],pend:['A CONFIRMAR','bdg-pend'],livre:['LIVRE','bdg-livre']};
+    let st=it.st||(['flight','train','hotel','transfer'].includes(it.ty)?'ok':null);
+    const bd=st&&ST[st]?`<span class="bdg ${ST[st][1]}">${ST[st][0]}</span>`:'';
+    h+=`<div class="card-top"><span><span class="ctype" style="color:${col}">${LB[it.ty]}</span>${bd}</span><span class="ctime">${esc(it.h)}</span></div>`;
     h+=`<div class="ctitle">${esc(it.ti)}</div><div class="csub">${esc(it.su)}</div>`;
     if(it.de)h+=`<div class="cdet">${esc(it.de)}</div>`;
     if(it.penalty)h+=`<div class="penalty">${esc(it.penalty)}</div>`;
     if(it.warn)h+=`<div class="warn">${esc(it.warn)}</div>`;
+    if(st==='sug')h+=`<div class="sugnote">Sugestão da AeroVoo. Não está incluída no pacote e não foi comprada com antecedência. Pode ser contratada no local, pelo aplicativo ou com a nossa ajuda durante a viagem.</div>`;
+    if(st==='pend')h+=`<div class="sugnote">Passeio ainda não contratado. A reserva é feita diretamente com a recepção do hotel, assim que vocês chegarem.</div>`;
     if(it.tel)h+=`<a class="chip" href="tel:${it.tel}"><span class="material-icons-round">call</span>${esc(it.tel)}</a>`;
     h+=`<div class="cfoot">`;
     if(it.info)h+=`<button class="btn-info" data-d="${cur}" data-x="${ix}"><span class="material-icons-round">info</span>VER SOBRE ESTE LOCAL</button>`;
